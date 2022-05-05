@@ -1,4 +1,5 @@
 const { User, validateLogin, validateUser } = require("../models/user");
+const { Agency, validateAgency, validateLoginAgency } = require("../models/agency")
 
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -142,6 +143,66 @@ router.put("/users/:userId/contact",  async (req, res) => {
     return res.status(201).send(user);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//Allow User to Favorite an Agency
+router.put("/users/:userId/favorite", async (req, res) => {
+  if (req.body.userId !== req.params.userId) {
+    try {
+      const user = await User.findByIdAndUpdate(req.params.userId);
+      const agency = await Agency.findById(req.body.agencyId);
+      if (!user.favAgency.includes(req.body.userId)) {
+        await user.updateOne({
+          $push: { favAgency: req.body.agencyId },
+        });
+        res.status(200).send("This agency have been favorited.");
+      } else {
+        res.status(403).send("You already favorited this agency!");
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  } else {
+    res.status(403)("You cannot favorite yourself!");
+  }
+});
+
+
+
+//AGENCIES
+
+//* POST register a new user
+router.post("/agency/register", async (req, res) => {
+  try {
+    const { error } = validateAgency(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    let agency = await Agency.findOne({ email: req.body.email });
+    if (agency)
+      return res.status(400).send(`Email ${req.body.email} already claimed!`);
+
+    const salt = await bcrypt.genSalt(10);
+    agency = new Agency({
+      name: req.body.name,
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, salt),
+      isAdmin: req.body.isAdmin,
+    });
+
+    await agency.save();
+    const token = agency.generateAuthToken();
+    return res
+      .header("x-auth-token", token)
+      .header("access-control-expose-headers", "x-auth-token")
+      .send({
+        _id: agency._id,
+        name: agency.name,
+        email: agency.email,
+        isAdmin: agency.isAdmin,
+      });
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
 
