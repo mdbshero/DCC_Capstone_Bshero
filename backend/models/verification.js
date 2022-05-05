@@ -30,7 +30,7 @@ const verificationSchema = new mongoose.Schema({
     agreeThree: {type: Boolean, required: true },
 });
 
-const Verification = mongoose.model("Contact", contactSchema);
+const Verification = mongoose.model("Verification", verificationSchema);
 function validateVerification(verification) {
     const schema = Joi.object({
         employment: Joi.string().min(4).required(),

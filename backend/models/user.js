@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const { contactSchema } = require("./contact");
+const { verificationSchema } = require("./verification");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true, minLength: 5, maxLength: 50 },
@@ -13,7 +14,11 @@ const userSchema = mongoose.Schema({
     maxLength: 255,
   },
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
+  aboutMe: { type: String, minLength: 2, maxLength: 255},
   contact: {type: contactSchema},
+  verification: {type: verificationSchema},
+  favAgency: [{type: mongoose.Types.ObjectId}],
+  verAgency: [{type: mongoose.Types.ObjectId}]
 });
 
 userSchema.methods.generateAuthToken = function () {
