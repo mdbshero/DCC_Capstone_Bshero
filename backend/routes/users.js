@@ -77,6 +77,16 @@ router.get("/users", [auth], async (req, res) => {
   }
 });
 
+//GET User by Id
+router.get("/users/:userId", async (req, res) => {
+  try {
+    const users = await User.findById(req.params.userId);
+    return res.send(users);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
 // DELETE a single user from the database
 router.delete("/users/:userId", [auth, admin], async (req, res) => {
   try {
