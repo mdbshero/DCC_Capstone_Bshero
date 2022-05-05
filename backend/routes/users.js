@@ -5,10 +5,11 @@ const admin = require("../middleware/admin");
 
 const bcrypt = require("bcrypt");
 const express = require("express");
+const { Contact } = require("../models/contact");
 const router = express.Router();
 
 //* POST register a new user
-router.post("/register", async (req, res) => {
+router.post("/users/register", async (req, res) => {
   try {
     const { error } = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -43,7 +44,7 @@ router.post("/register", async (req, res) => {
 
 // POST a valid login attempt
 // when a user logs in, a new JWT token is generated and sent if their email/password credentials are correct
-router.post("/login", async (req, res) => {
+router.post("/users/loginUser", async (req, res) => {
   try {
     const { error } = validateLogin(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -66,7 +67,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get all users
-router.get("/", [auth], async (req, res) => {
+router.get("/users", [auth], async (req, res) => {
   try {
     console.log(req.user);
     const users = await User.find();
@@ -77,7 +78,7 @@ router.get("/", [auth], async (req, res) => {
 });
 
 // DELETE a single user from the database
-router.delete("/:userId", [auth, admin], async (req, res) => {
+router.delete("/users/:userId", [auth, admin], async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     if (!user)
@@ -88,6 +89,49 @@ router.delete("/:userId", [auth, admin], async (req, res) => {
     return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//PUT add an about me
+router.put("/users/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`User with id ${req.params.userId} does not exist!`);
+    let about = await User.findByIdAndUpdate(req.params.userId, req.body);
+    return res.send(about);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//PUT contact information (user)
+//http://localhost:3011/api/
+router.put("/users/:userId/contact",  async (req, res) => {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.userId} does not exist!`);
+
+      
+    // let newContact = new Contact({
+    //   street: req.body.street,
+    //   city: req.body.city,
+    //   zip: req.body.zip,
+    //   phone: req.body.phone
+    // });
+    user.contact.street = req.body.street;
+    user.contact.city = req.body.city;
+    user.contact.zip = req.body.zip;
+    user.contact.phone = req.body.phone;
+    await user.save();
+    return res.status(201).send(user);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
 
