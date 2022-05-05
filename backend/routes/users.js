@@ -168,6 +168,24 @@ router.put("/users/:userId/favorite", async (req, res) => {
   }
 });
 
+// DELETE a favorite agency
+router.delete("/users/:userId/unfavorite/:requestId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    for (let i = 0; i < user.favAgency.length; i++) {
+      if (user.favAgency[i].toString() === req.params.requestId) {
+        await user.updateOne({
+          $pull: { favAgency: req.params.requestId },
+        });
+        return res.status(200).send("The agency have been removed from the favorite list!");
+      }
+    }
+    return res.status(400).send("This request does not exist");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 
 
 //AGENCIES
