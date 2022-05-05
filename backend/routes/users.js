@@ -119,7 +119,6 @@ router.put("/users/:userId", async (req, res) => {
 });
 
 //PUT contact information (user)
-//http://localhost:3011/api/
 router.put("/users/:userId/contact",  async (req, res) => {
   try {
     let user = await User.findById(req.params.userId);
@@ -152,7 +151,7 @@ router.put("/users/:userId/favorite", async (req, res) => {
     try {
       const user = await User.findByIdAndUpdate(req.params.userId);
       const agency = await Agency.findById(req.body.agencyId);
-      if (!user.favAgency.includes(req.body.userId)) {
+      if (!user.favAgency.includes(req.body.agencyId)) {
         await user.updateOne({
           $push: { favAgency: req.body.agencyId },
         });
@@ -183,6 +182,21 @@ router.delete("/users/:userId/unfavorite/:requestId", async (req, res) => {
     return res.status(400).send("This request does not exist");
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+//PUT add a preferred pet
+router.put("/users/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`User with id ${req.params.userId} does not exist!`);
+    let about = await User.findByIdAndUpdate(req.params.userId, req.body);
+    return res.send(prefPet);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
 

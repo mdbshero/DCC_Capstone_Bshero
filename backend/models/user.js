@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
   favAgency: [{type: mongoose.Types.ObjectId}],
   verAgency: [{type: mongoose.Types.ObjectId}],
   isAdmin: { type: Boolean, required: true },
+  prefPet: { type: String, minLength: 4, maxLength: 1024 },
 });
 
 userSchema.methods.generateAuthToken = function () {
