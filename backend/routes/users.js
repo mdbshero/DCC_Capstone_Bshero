@@ -376,4 +376,21 @@ router.put("/agency/:agencyId/pets", async (req, res) => {
   }
 });
 
+// DELETE a pet
+router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    for (let i = 0; i < agency.pets.length; i++) {
+      if (agency.pets[i]._id == req.params.petId) {
+        agency.pets[i].remove();
+        await agency.save();
+        return res.status(200).send("The pet has been removed!");
+      }
+    }
+    return res.status(400).send("you cannot remove other agency's pets");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;
