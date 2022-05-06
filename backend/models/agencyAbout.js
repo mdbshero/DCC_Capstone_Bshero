@@ -12,10 +12,10 @@ const agencyAboutSchema = new mongoose.Schema({
 const AgencyAbout = mongoose.model("AgencyAbout", agencyAboutSchema);
 function validateAgencyAbout(agencyAbout) {
     const schema = Joi.object({
-        street: Joi.string().min(4).required(),
-        city: Joi.string().min(4).required(),
-        zip: Joi.number().min(5).required(),
-        phone: Joi.number().min(10).required()
+        aboutAgency: Joi.string().min(4).required(),
+        goals: Joi.string().min(4).required(),
+        typePet: Joi.number().min(5).required(),
+        fees: Joi.number().min(10).required()
     });
     return schema.validate(agencyAbout);
 }

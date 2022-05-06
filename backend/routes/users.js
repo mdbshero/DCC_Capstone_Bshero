@@ -348,5 +348,23 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
+//PUT about information (agency)
+router.put("/agency/:agencyId/about", async (req, res) => {
+  try {
+    let agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.userId} does not exist!`);
+    agency.about.aboutAgency = req.body.aboutAgency;
+    agency.about.goals = req.body.goals;
+    agency.about.typePet = req.body.typePet;
+    agency.about.fees = req.body.fees;
+    await agency.save();
+    return res.status(201).send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 
 module.exports = router;
