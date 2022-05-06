@@ -237,6 +237,28 @@ router.put("/users/:userId", async (req, res) => {
   }
 });
 
+// PUT send a verification request
+router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
+  if (req.params.userId !== req.params.agencyId) {
+    try {
+      const agency = await Agency.findByIdAndUpdate(req.params.agencyId);
+      const user = await User.findById(req.params.userId);
+      if (!user.verAgency.includes(req.params.agencyId)) {
+        await agency.updateOne({
+          $push: { pendingUser: req.params.userId },
+        });
+        res.status(200).send("Request has been sent.");
+      } else {
+        res.status(403).send("You already requested verification with this agency!");
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  } else {
+    res.status(403)("You are not an agency!");
+  }
+});
+
 //AGENCIES
 
 // Get all agencies
