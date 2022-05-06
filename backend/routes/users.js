@@ -393,4 +393,26 @@ router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
   }
 });
 
+// PUT agencies verify users
+router.put("/agency/:agencyId/accept/:userId", async (req, res) => {
+  if (req.params.agencyId !== req.params.userId) {
+    try {
+      const agency = await Agency.findByIdAndUpdate(req.params.agencyId);
+      const user = await User.findById(req.params.userId);
+      if (!agency.verUser.includes(req.params.userId)) {
+        await agency.updateOne({ $push: { verUser: req.params.userId } });
+        await user.updateOne({ $push: { verAgency: req.params.agencyId } });
+        await agency.updateOne({ $pull: { pendingUser: req.params.userId } });
+        res.status(200).send("User has been verified");
+      } else {
+        res.status(403).send("You already verified this user!");
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  } else {
+    res.status(403)("You cannot verify yourself!");
+  }
+});
+
 module.exports = router;
