@@ -1,5 +1,9 @@
 const { User, validateLogin, validateUser } = require("../models/user");
-const { Agency, validateAgency, validateLoginAgency } = require("../models/agency")
+const {
+  Agency,
+  validateAgency,
+  validateLoginAgency,
+} = require("../models/agency");
 
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -119,25 +123,56 @@ router.put("/users/:userId", async (req, res) => {
 });
 
 //PUT contact information (user)
-router.put("/users/:userId/contact",  async (req, res) => {
+router.put("/users/:userId/contact", async (req, res) => {
   try {
     let user = await User.findById(req.params.userId);
     if (!user)
       return res
         .status(400)
         .send(`Post with Id of ${req.params.userId} does not exist!`);
-
-      
-    // let newContact = new Contact({
-    //   street: req.body.street,
-    //   city: req.body.city,
-    //   zip: req.body.zip,
-    //   phone: req.body.phone
-    // });
     user.contact.street = req.body.street;
     user.contact.city = req.body.city;
     user.contact.zip = req.body.zip;
     user.contact.phone = req.body.phone;
+    await user.save();
+    return res.status(201).send(user);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//PUT verification information (user)
+router.put("/users/:userId/verification", async (req, res) => {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.userId} does not exist!`);
+    user.verification.employment = req.body.employment;
+    user.verification.homeType = req.body.homeType;
+    user.verification.homeStatus = req.body.homeStatus;
+    user.verification.homeTime = req.body.homeTime;
+    user.verification.homeNoise = req.body.homeNoise;
+    user.verification.landName = req.body.landName;
+    user.verification.landNumber = req.body.landNumber;
+    user.verification.aNum = req.body.aNum;
+    user.verification.cNum = req.body.cNum;
+    user.verification.adoptReason = req.body.adoptReason;
+    user.verification.petHours = req.body.petHours;
+    user.verification.petLoca = req.body.petLoca;
+    user.verification.petSleep = req.body.petSleep;
+    user.verification.fence = req.body.fence;
+    user.verification.vetName = req.body.vetName;
+    user.verification.vetNumber = req.body.vetNumber;
+    user.verification.prefTemp = req.body.prefTemp;
+    user.verification.petDis = req.body.petDis;
+    user.verification.petEn = req.body.petEn;
+    user.verification.petIdeal = req.body.petIdeal;
+    user.verification.petBadHab = req.body.petBadHab;
+    user.verification.agreeOne = req.body.agreeOne;
+    user.verification.agreeTwo = req.body.agreeTwo;
+    user.verification.agreeThree = req.body.agreeThree;
     await user.save();
     return res.status(201).send(user);
   } catch (error) {
@@ -176,7 +211,9 @@ router.delete("/users/:userId/unfavorite/:requestId", async (req, res) => {
         await user.updateOne({
           $pull: { favAgency: req.params.requestId },
         });
-        return res.status(200).send("The agency have been removed from the favorite list!");
+        return res
+          .status(200)
+          .send("The agency have been removed from the favorite list!");
       }
     }
     return res.status(400).send("This request does not exist");
@@ -199,8 +236,6 @@ router.put("/users/:userId", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-
-
 
 //AGENCIES
 
