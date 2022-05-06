@@ -239,6 +239,17 @@ router.put("/users/:userId", async (req, res) => {
 
 //AGENCIES
 
+// Get all agencies
+router.get("/agency", [auth], async (req, res) => {
+  try {
+    console.log(req.agency);
+    const agency = await Agency.find();
+    return res.send(agency);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 //* POST register a new user
 router.post("/agency/register", async (req, res) => {
   try {
