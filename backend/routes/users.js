@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const { Contact } = require("../models/contact");
 const router = express.Router();
+const { Pet } = require("../models/pet");
 
 //* POST register a new user
 router.post("/users/register", async (req, res) => {
@@ -249,7 +250,9 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
         });
         res.status(200).send("Request has been sent.");
       } else {
-        res.status(403).send("You already requested verification with this agency!");
+        res
+          .status(403)
+          .send("You already requested verification with this agency!");
       }
     } catch (err) {
       res.status(500).send(err);
@@ -348,18 +351,24 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
-//PUT about information (agency)
-router.put("/agency/:agencyId/about", async (req, res) => {
+
+//PUT upload a pet into an agency profile
+router.put("/agency/:agencyId/pets", async (req, res) => {
   try {
     let agency = await Agency.findById(req.params.agencyId);
     if (!agency)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
-    agency.about.aboutAgency = req.body.aboutAgency;
-    agency.about.goals = req.body.goals;
-    agency.about.typePet = req.body.typePet;
-    agency.about.fees = req.body.fees;
+        .send(`Agency with Id of ${req.params.agencyId} does not exist!`);
+
+    let newPet = new Pet({
+      name: req.body.name,
+      type: req.body.type,
+      age: req.body.age,
+      breed: req.body.breed,
+      personality: req.body.personality,
+    });
+    agency.pets.push(newPet);
     await agency.save();
     return res.status(201).send(agency);
   } catch (error) {

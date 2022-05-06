@@ -17,7 +17,7 @@ const agencySchema = mongoose.Schema({
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
   contact: { type: contactSchema, default: {} },
   about: { type: agencyAboutSchema, default: {}},
-  pets: { type: petSchema, default: {} },
+  pets: [{type: petSchema}],
   prefUser: { type: String, minLength: 4, maxLength: 1024 },
   verUser: [{ type: mongoose.Types.ObjectId }],
   pendingUser: [{ type: mongoose.Types.ObjectId }],

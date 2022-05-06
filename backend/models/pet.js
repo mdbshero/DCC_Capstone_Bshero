@@ -3,6 +3,7 @@ const Joi = require("joi");
 
 
 const petSchema = new mongoose.Schema({
+    name: {type: String, minLength: 1},
     type: {type: String, minLength: 1},
     age: {type: Number, minLength: 1},
     breed: {type: String, minLength: 1},
@@ -12,10 +13,11 @@ const petSchema = new mongoose.Schema({
 const Pet = mongoose.model("Pet", petSchema);
 function validatePet(pet) {
     const schema = Joi.object({
-        street: Joi.string().min(4).required(),
-        city: Joi.string().min(4).required(),
-        zip: Joi.number().min(5).required(),
-        phone: Joi.number().min(10).required()
+        name: Joi.string().min(1),
+        type: Joi.string().min(1),
+        age: Joi.number().min(1),
+        breed: Joi.string().min(1),
+        personality: Joi.string().min(1),
     });
     return schema.validate(pet);
 }
