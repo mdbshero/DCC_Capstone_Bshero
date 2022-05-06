@@ -306,4 +306,28 @@ router.post("/agency/register", async (req, res) => {
   }
 });
 
+// POST a valid login attempt
+// when a user logs in, a new JWT token is generated and sent if their email/password credentials are correct
+router.post("/agency/loginAgency", async (req, res) => {
+  try {
+    const { error } = validateLoginAgency(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    let agency = await Agency.findOne({ email: req.body.email });
+    if (!agency) return res.status(400).send(`Invalid email or password.`);
+
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      agency.password
+    );
+    if (!validPassword)
+      return res.status(400).send("Invalid email or password.");
+
+    const token = agency.generateAuthToken();
+    return res.send(token);
+  } catch (ex) {
+    return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
 module.exports = router;
