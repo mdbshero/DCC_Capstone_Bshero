@@ -330,4 +330,23 @@ router.post("/agency/loginAgency", async (req, res) => {
   }
 });
 
+//PUT contact information (agency)
+router.put("/agency/:agencyId/contact", async (req, res) => {
+  try {
+    let agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.userId} does not exist!`);
+    agency.contact.street = req.body.street;
+    agency.contact.city = req.body.city;
+    agency.contact.zip = req.body.zip;
+    agency.contact.phone = req.body.phone;
+    await agency.save();
+    return res.status(201).send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
 module.exports = router;
