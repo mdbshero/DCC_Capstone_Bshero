@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const { contactSchema } = require("./contact");
-const { verificationSchema } = require("./verification");
+const { agencyAboutSchema } = require("./agencyAbout");
+const { petSchema } = require("./pet");
 
-const userSchema = mongoose.Schema({
+const agencySchema = mongoose.Schema({
   name: { type: String, required: true, minLength: 5, maxLength: 50 },
   email: {
     type: String,
@@ -14,17 +15,17 @@ const userSchema = mongoose.Schema({
     maxLength: 255,
   },
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
-  aboutMe: { type: String, minLength: 2, maxLength: 255},
-  contact: {type: contactSchema, default: {}},
-  verification: {type: verificationSchema, default: {}},
-  favAgency: [{type: mongoose.Types.ObjectId}],
-  verAgency: [{type: mongoose.Types.ObjectId}],
+  contact: { type: contactSchema, default: {} },
+  about: { type: agencyAboutSchema, default: {}},
+  pets: [{type: petSchema}],
+  prefUser: { type: String, minLength: 4, maxLength: 1024 },
+  verUser: [{ type: mongoose.Types.ObjectId }],
+  pendingUser: [{ type: mongoose.Types.ObjectId }],
   isAdmin: { type: Boolean, required: true },
-  prefPet: { type: String, minLength: 4, maxLength: 1024 },
-  image: { type: String, default: ""}
+  image: { type: String, default: ""} 
 });
 
-userSchema.methods.generateAuthToken = function () {
+agencySchema.methods.generateAuthToken = function () {
   return jwt.sign(
     {
       _id: this._id,
@@ -37,7 +38,7 @@ userSchema.methods.generateAuthToken = function () {
   );
 };
 
-const validateUser = (user) => {
+const validateAgency = (agency) => {
   const schema = Joi.object({
     name: Joi.string().min(5).max(50).required(),
     email: Joi.string().min(5).max(255).required().email(),
@@ -45,10 +46,10 @@ const validateUser = (user) => {
     isAdmin: Joi.bool().required(),
     image: Joi.string()
   });
-  return schema.validate(user);
+  return schema.validate(agency);
 };
 
-const validateLogin = (req) => {
+const validateLoginAgency = (req) => {
   const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(1024).required(),
@@ -56,8 +57,8 @@ const validateLogin = (req) => {
   return schema.validate(req);
 };
 
-const User = mongoose.model("User", userSchema);
-module.exports.User = User;
-module.exports.userSchema = userSchema;
-module.exports.validateUser = validateUser;
-module.exports.validateLogin = validateLogin;
+const Agency = mongoose.model("Agency", agencySchema);
+module.exports.Agency = Agency;
+module.exports.agencySchema = agencySchema;
+module.exports.validateAgency = validateAgency;
+module.exports.validateLoginAgency = validateLoginAgency;
