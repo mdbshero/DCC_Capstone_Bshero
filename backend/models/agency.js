@@ -22,6 +22,7 @@ const agencySchema = mongoose.Schema({
   verUser: [{ type: mongoose.Types.ObjectId }],
   pendingUser: [{ type: mongoose.Types.ObjectId }],
   isAdmin: { type: Boolean, required: true },
+  image: { type: String, default: ""} 
 });
 
 agencySchema.methods.generateAuthToken = function () {
@@ -31,6 +32,7 @@ agencySchema.methods.generateAuthToken = function () {
       name: this.name,
       email: this.email,
       isAdmin: this.isAdmin,
+      image: this.image
     },
     process.env.JWT_SECRET
   );
@@ -42,6 +44,7 @@ const validateAgency = (agency) => {
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(1024).required(),
     isAdmin: Joi.bool().required(),
+    image: Joi.string()
   });
   return schema.validate(agency);
 };
