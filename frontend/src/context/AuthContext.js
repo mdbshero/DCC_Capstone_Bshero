@@ -8,7 +8,7 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-  const BASE_URL = "http://localhost:3011/api/users";
+  const BASE_URL = "http://localhost:3011/api";
   const decodedUser = localStorage.getItem("token");
   const decodedToken = decodedUser ? jwtDecode(decodedUser) : null;
   const [user, setUser] = useState(() => decodedToken);
@@ -16,15 +16,22 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const registerUser = async (registerData) => {
+    const form = new FormData();
+    form.append("name", registerData.name);
+    form.append("email", registerData.email);
+    form.append("password", registerData.password);
+    form.append("isAdmin", registerData.isAdmin);
+    form.append("image", registerData.image);
     try {
-      let response = await axios.post(`${BASE_URL}/register`, registerData);
+      console.log(registerData);
+      let response = await axios.post(`${BASE_URL}/users/register`, form);
       if (response.status === 200) {
         let token = response.headers["x-auth-token"];
         localStorage.setItem("token", JSON.stringify(token));
         setUser(jwtDecode(token));
         navigate("/");
       } else {
-        navigate("/register");
+        navigate("/registerUser");
       }
     } catch (error) {
       console.log(error);

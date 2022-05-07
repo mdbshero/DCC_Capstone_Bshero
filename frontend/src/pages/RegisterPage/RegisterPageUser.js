@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 
@@ -9,6 +9,8 @@ const RegisterPage = () => {
     defaultValues,
     registerUser
   );
+
+  const filePickerRef = useRef();
 
   return (
     <div className="container">
@@ -38,6 +40,17 @@ const RegisterPage = () => {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Profile Picture:{" "}
+          <input
+            type="file"
+            name="image"
+            ref={filePickerRef}
+            accept=".jpg,.jpeg,.png"
+            onChange={handleInputChange}
+            className="form-control"
           />
         </label>
         <label
