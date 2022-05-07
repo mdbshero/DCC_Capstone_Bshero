@@ -4,12 +4,12 @@ import useCustomForm from "../../hooks/useCustomForm";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
 
-const LoginPage = () => {
-  const { loginUser, isServerError } = useContext(AuthContext);
+const LoginPageAgency = () => {
+  const { loginAgency, isServerError } = useContext(AuthContext);
   const defaultValues = { email: "", password: "" };
   const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
     defaultValues,
-    loginUser
+    loginAgency
   );
 
   useEffect(() => {
@@ -42,11 +42,11 @@ const LoginPage = () => {
         {isServerError ? (
           <p className="error">Login failed, incorrect credentials!</p>
         ) : null}
-        <Link to="/registerUser">Click to register!</Link>
+        <Link to="/registerAgency">Click to register!</Link>
         <button>Login!</button>
       </form>
     </div>
   );
 };
 
-export default LoginPage;
+export default LoginPageAgency;

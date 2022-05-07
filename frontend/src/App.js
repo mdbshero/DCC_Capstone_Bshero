@@ -4,8 +4,10 @@ import "./App.css";
 
 // Pages Imports
 import HomePage from "./pages/HomePage/HomePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import LoginPageUser from "./pages/LoginPage/LoginPageUser";
 import RegisterPageUser from "./pages/RegisterPage/RegisterPageUser";
+import RegisterPageAgency from "./pages/RegisterPage/RegisterPageAgency"
+import LoginPageAgency from "./pages/LoginPage/LoginPageAgency";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -28,7 +30,9 @@ function App() {
           }
         />
         <Route path="/registerUser" element={<RegisterPageUser />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registerAgency" element={<RegisterPageAgency />} />
+        <Route path="/loginUser" element={<LoginPageUser />} />
+        <Route path="/loginAgency" element={<LoginPageAgency />} />
       </Routes>
       <Footer />
     </div>

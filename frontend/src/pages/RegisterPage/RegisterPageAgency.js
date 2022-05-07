@@ -2,12 +2,12 @@ import React, { useContext, useRef } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 
-const RegisterPageUser = () => {
-  const { registerUser } = useContext(AuthContext);
+const RegisterPageAgency = () => {
+  const { registerAgency } = useContext(AuthContext);
   const defaultValues = { name: "", email: "", password: "", isAdmin: false };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
-    registerUser
+    registerAgency
   );
 
   const filePickerRef = useRef();
@@ -74,4 +74,4 @@ const RegisterPageUser = () => {
   );
 };
 
-export default RegisterPageUser;
+export default RegisterPageAgency;
