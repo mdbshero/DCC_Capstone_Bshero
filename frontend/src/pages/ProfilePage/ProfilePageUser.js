@@ -10,6 +10,7 @@ const ProfileUser = (props) => {
   const [image, setImage] = useState("");
   const [ver, setVer] = useState("");
   const [pref, setPref] = useState("");
+  const [newPref, setNewPref] = useState("");
   const [contact, setContact] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
@@ -38,6 +39,14 @@ const ProfileUser = (props) => {
     await axios.put(`http://localhost:3011/api/users/${user._id}`, newAboutMe);
     getUserAboutMeInfo();
   }
+  async function handleSubmitPref(event) {
+    event.preventDefault();
+    let newPrefPet = {
+      prefPet: newPref,
+    };
+    await axios.put(`http://localhost:3011/api/users/${user._id}`, newPrefPet);
+    getUserAboutMeInfo();
+  }
   async function handleSubmitContact(event) {
     event.preventDefault();
     let newContact = {
@@ -45,9 +54,12 @@ const ProfileUser = (props) => {
       city: city,
       zip: zip,
       phone: phone,
-      state: usState
+      state: usState,
     };
-    await axios.put(`http://localhost:3011/api/users/${user._id}/contact`, newContact);
+    await axios.put(
+      `http://localhost:3011/api/users/${user._id}/contact`,
+      newContact
+    );
     getUserAboutMeInfo();
   }
 
@@ -84,16 +96,10 @@ const ProfileUser = (props) => {
         />
         <br />
         <label>Update Zip:</label>
-        <input
-          type="text"
-          onChange={(event) => setZip(event.target.value)}
-        />
+        <input type="text" onChange={(event) => setZip(event.target.value)} />
         <br />
         <label>Update Phone Number:</label>
-        <input
-          type="text"
-          onChange={(event) => setPhone(event.target.value)}
-        />
+        <input type="text" onChange={(event) => setPhone(event.target.value)} />
         <br />
         <label>Update State:</label>
         <input
@@ -204,6 +210,15 @@ const ProfileUser = (props) => {
         <div>
           <p>{pref}</p>
         </div>
+        <form id="NewPref" onSubmit={(event) => handleSubmitPref(event)}>
+        <label>Update Preferred Pet Characteristics:</label>
+        <textarea
+          type="text"
+          defaultValue={""}
+          onChange={(event) => setNewPref(event.target.value)}
+        />
+        <button type="submit">Update</button>
+      </form>
       </div>
       <div>
         <h2>Contact Information</h2>
