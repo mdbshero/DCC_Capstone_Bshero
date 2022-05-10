@@ -131,6 +131,7 @@ router.put("/users/:userId/contact", async (req, res) => {
         .send(`Post with Id of ${req.params.userId} does not exist!`);
     user.contact.street = req.body.street;
     user.contact.city = req.body.city;
+    user.contact.state = req.body.state;
     user.contact.zip = req.body.zip;
     user.contact.phone = req.body.phone;
     await user.save();

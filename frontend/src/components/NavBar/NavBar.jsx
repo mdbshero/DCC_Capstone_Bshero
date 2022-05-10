@@ -11,7 +11,7 @@ const Navbar = () => {
     <div className="navBar">
       <ul>
         <li className="brand">
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/loginUser" style={{ textDecoration: "none", color: "white" }}>
             <b>fĕch</b>
           </Link>
         </li>
@@ -20,6 +20,13 @@ const Navbar = () => {
             <button onClick={logoutUser}>Logout</button>
           ) : (
             <button onClick={() => navigate("/loginUser")}>User Login</button>
+          )}
+        </li>
+        <li>
+          {user ? (
+            <button onClick={logoutUser}>Logout</button>
+          ) : (
+            <button onClick={() => navigate("/loginAgency")}>Agency Login</button>
           )}
         </li>
       </ul>

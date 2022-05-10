@@ -3,11 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Pages Imports
-import HomePage from "./pages/HomePage/HomePage";
+import HomePageUser from "./pages/HomePage/HomePageUser";
 import LoginPageUser from "./pages/LoginPage/LoginPageUser";
 import RegisterPageUser from "./pages/RegisterPage/RegisterPageUser";
 import RegisterPageAgency from "./pages/RegisterPage/RegisterPageAgency"
 import LoginPageAgency from "./pages/LoginPage/LoginPageAgency";
+import HomePageAgency from "./pages/HomePage/HomePageAgency";
+import ProfileUser from "./pages/ProfilePage/ProfilePageUser";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -22,10 +24,18 @@ function App() {
       <Navbar />
       <Routes>
         <Route
-          path="/"
+          path="/homeUser"
           element={
             <PrivateRoute>
-              <HomePage />
+              <HomePageUser />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/homeAgency"
+          element={
+            <PrivateRoute>
+              <HomePageAgency />
             </PrivateRoute>
           }
         />
@@ -33,6 +43,7 @@ function App() {
         <Route path="/registerAgency" element={<RegisterPageAgency />} />
         <Route path="/loginUser" element={<LoginPageUser />} />
         <Route path="/loginAgency" element={<LoginPageAgency />} />
+        <Route path="/profileUser" element={<ProfileUser />} />
       </Routes>
       <Footer />
     </div>

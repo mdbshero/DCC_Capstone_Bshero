@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         let token = response.headers["x-auth-token"];
         localStorage.setItem("token", JSON.stringify(token));
         setUser(jwtDecode(token));
-        navigate("/");
+        navigate("/homeUser");
       } else {
         navigate("/registerUser");
       }
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", JSON.stringify(response.data));
         setUser(jwtDecode(response.data));
         setIsServerError(false);
-        navigate("/");
+        navigate("/homeUser");
       } else {
         navigate("/registerUser");
       }
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     if (user) {
       localStorage.removeItem("token");
       setUser(null);
-      navigate("/");
+      navigate("/loginUser");
     }
   };
 
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
         let token = response.headers["x-auth-token"];
         localStorage.setItem("token", JSON.stringify(token));
         setUser(jwtDecode(token));
-        navigate("/");
+        navigate("/homeAgency");
       } else {
         navigate("/registerAgency");
       }
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", JSON.stringify(response.data));
         setUser(jwtDecode(response.data));
         setIsServerError(false);
-        navigate("/");
+        navigate("/homeAgency");
       } else {
         navigate("/registerAgency");
       }
