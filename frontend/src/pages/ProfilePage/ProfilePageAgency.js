@@ -20,6 +20,11 @@ const ProfileAgency = () => {
   const [aboutAg, setaboutAg] = useState("");
   const [fees, setFees] = useState();
   const [goals, setGoals] = useState("");
+  const [pName, setPName] = useState("");
+  const [pType, setPType] = useState("");
+  const [pAge, setPAge] = useState("");
+  const [pBreed, setPBreed] = useState("");
+  const [pPersonality, setPPersonality] = useState("");
   const [type, setType] = useState("");
   const jwt = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${jwt}` } };
@@ -83,6 +88,22 @@ const ProfileAgency = () => {
     );
     getUserAboutMeInfo();
   }
+  async function handleSubmitPet(event) {
+    event.preventDefault();
+    let newPet = {
+      name: pName,
+      type: pType,
+      age: pAge,
+      breed: pBreed,
+      personality: pPersonality,
+    };
+    console.log(newPet);
+    await axios.put(
+      `http://localhost:3011/api/agency/${user._id}/pets`,
+      newPet
+    );
+    getUserAboutMeInfo();
+  }
 
   useEffect(() => {
     getUserAboutMeInfo();
@@ -100,33 +121,33 @@ const ProfileAgency = () => {
         />
         <button type="submit">Update</button>
     </form> */}
-    <div>
-      <h2>Contact Information</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Street</th>
-            <td>{contact.street}</td>4
-          </tr>
-          <tr>
-            <th>City</th>
-            <td>{contact.city}</td>
-          </tr>
-          <tr>
-            <th>State</th>
-            <td>{contact.state}</td>
-          </tr>
-          <tr>
-            <th>Zip Code</th>
-            <td>{contact.zip}</td>
-          </tr>
-          <tr>
-            <th>Phone Number</th>
-            <td>{contact.phone}</td>
-          </tr>
-        </thead>
-      </table>
-    </div>
+      <div>
+        <h2>Contact Information</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Street</th>
+              <td>{contact.street}</td>4
+            </tr>
+            <tr>
+              <th>City</th>
+              <td>{contact.city}</td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td>{contact.state}</td>
+            </tr>
+            <tr>
+              <th>Zip Code</th>
+              <td>{contact.zip}</td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td>{contact.phone}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
       <h2>Update Contact Information:</h2>
       <form id="Contact" onSubmit={(event) => handleSubmitContact(event)}>
         <label>Update street:</label>
@@ -182,7 +203,10 @@ const ProfileAgency = () => {
         </table>
       </div>
       <h2>Update Agency Information:</h2>
-      <form id="Agency Information" onSubmit={(event) => handleSubmitInfo(event)}>
+      <form
+        id="Agency Information"
+        onSubmit={(event) => handleSubmitInfo(event)}
+      >
         <label>Update About:</label>
         <input
           type="text"
@@ -191,10 +215,7 @@ const ProfileAgency = () => {
         />
         <br />
         <label>Update Fees:</label>
-        <input
-          type="text"
-          onChange={(event) => setFees(event.target.value)}
-        />
+        <input type="text" onChange={(event) => setFees(event.target.value)} />
         <br />
         <label>Update Goals:</label>
         <input type="text" onChange={(event) => setGoals(event.target.value)} />
@@ -213,7 +234,9 @@ const ProfileAgency = () => {
           id="NewPrefUser"
           onSubmit={(event) => handleSubmitPrefUser(event)}
         >
-          <label><strong>Update Preferred User Characteristics:</strong></label>
+          <label>
+            <strong>Update Preferred User Characteristics:</strong>
+          </label>
           <textarea
             type="text"
             defaultValue={""}
@@ -223,7 +246,7 @@ const ProfileAgency = () => {
         </form>
       </div>
       <div>
-          <h2>Available Pets</h2>
+        <h2>Available Pets</h2>
         {pets &&
           pets.map((pets, key) => {
             return (
@@ -269,6 +292,35 @@ const ProfileAgency = () => {
           })}
         ;
       </div>
+      <h2>Add Pets</h2>
+      <form id="Add Pets" onSubmit={(event) => handleSubmitPet(event)}>
+        <label>Name:</label>
+        <input
+          type="text"
+          defaultValue={""}
+          onChange={(event) => setPName(event.target.value)}
+        />
+        <br />
+        <label>Type:</label>
+        <input type="text" onChange={(event) => setPType(event.target.value)} />
+        <br />
+        <label>Age:</label>
+        <input type="text" onChange={(event) => setPAge(event.target.value)} />
+        <br />
+        <label>Breed:</label>
+        <input
+          type="text"
+          onChange={(event) => setPBreed(event.target.value)}
+        />
+        <br />
+        <label>Personality:</label>
+        <input
+          type="text"
+          onChange={(event) => setPPersonality(event.target.value)}
+        />
+        <br />
+        <button type="submit">Update</button>
+      </form>
     </div>
   );
 };
