@@ -3,7 +3,7 @@ import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 
-const ProfileUser = (props) => {
+const ProfileUser = () => {
   const { user } = useContext(AuthContext);
   const [about, setAbout] = useState("");
   const [newAbout, setNewAbout] = useState("");
@@ -56,6 +56,7 @@ const ProfileUser = (props) => {
       phone: phone,
       state: usState,
     };
+    console.log(newContact)
     await axios.put(
       `http://localhost:3011/api/users/${user._id}/contact`,
       newContact
@@ -211,21 +212,21 @@ const ProfileUser = (props) => {
           <p>{pref}</p>
         </div>
         <form id="NewPref" onSubmit={(event) => handleSubmitPref(event)}>
-        <label>Update Preferred Pet Characteristics:</label>
-        <textarea
-          type="text"
-          defaultValue={""}
-          onChange={(event) => setNewPref(event.target.value)}
-        />
-        <button type="submit">Update</button>
-      </form>
+          <label>Update Preferred Pet Characteristics:</label>
+          <textarea
+            type="text"
+            defaultValue={""}
+            onChange={(event) => setNewPref(event.target.value)}
+          />
+          <button type="submit">Update</button>
+        </form>
       </div>
       <div>
         <h2>Contact Information</h2>
         <table>
           <tr>
             <th>Street</th>
-            <td>{contact.street}</td>
+            <td>{contact.street}</td>4
           </tr>
           <tr>
             <th>City</th>

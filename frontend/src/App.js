@@ -17,6 +17,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
+import VerFormUser from "./components/VerificationForm/VerificationForm";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/loginUser" element={<LoginPageUser />} />
         <Route path="/loginAgency" element={<LoginPageAgency />} />
         <Route path="/profileUser" element={<ProfileUser />} />
+        <Route path="/verUser" element={<VerFormUser />} />
       </Routes>
       <Footer />
     </div>
