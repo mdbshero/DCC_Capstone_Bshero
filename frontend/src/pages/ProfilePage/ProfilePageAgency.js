@@ -17,6 +17,10 @@ const ProfileAgency = () => {
   const [prefUser, setPrefUser] = useState("");
   const [newPrefUser, setNewPrefUser] = useState("");
   const [pets, setPets] = useState([]);
+  const [aboutAg, setaboutAg] = useState("");
+  const [fees, setFees] = useState();
+  const [goals, setGoals] = useState("");
+  const [type, setType] = useState("");
   const jwt = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${jwt}` } };
 
@@ -64,6 +68,21 @@ const ProfileAgency = () => {
     );
     getUserAboutMeInfo();
   }
+  async function handleSubmitInfo(event) {
+    event.preventDefault();
+    let newInfo = {
+      aboutAgency: aboutAg,
+      fees: fees,
+      goals: goals,
+      typePet: type,
+    };
+    console.log(newInfo);
+    await axios.put(
+      `http://localhost:3011/api/agency/${user._id}/about`,
+      newInfo
+    );
+    getUserAboutMeInfo();
+  }
 
   useEffect(() => {
     getUserAboutMeInfo();
@@ -75,12 +94,39 @@ const ProfileAgency = () => {
       {/* <form id="About" onSubmit={(event) => handleSubmitAbout(event)}>
         <label>Update About me:</label>
         <textarea
-          type="text"
-          defaultValue={""}
-          onChange={(event) => setNewAbout(event.target.value)}
+        type="text"
+        defaultValue={""}
+        onChange={(event) => setNewAbout(event.target.value)}
         />
         <button type="submit">Update</button>
-      </form> */}
+    </form> */}
+    <div>
+      <h2>Contact Information</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Street</th>
+            <td>{contact.street}</td>4
+          </tr>
+          <tr>
+            <th>City</th>
+            <td>{contact.city}</td>
+          </tr>
+          <tr>
+            <th>State</th>
+            <td>{contact.state}</td>
+          </tr>
+          <tr>
+            <th>Zip Code</th>
+            <td>{contact.zip}</td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td>{contact.phone}</td>
+          </tr>
+        </thead>
+      </table>
+    </div>
       <h2>Update Contact Information:</h2>
       <form id="Contact" onSubmit={(event) => handleSubmitContact(event)}>
         <label>Update street:</label>
@@ -135,6 +181,29 @@ const ProfileAgency = () => {
           </thead>
         </table>
       </div>
+      <h2>Update Agency Information:</h2>
+      <form id="Agency Information" onSubmit={(event) => handleSubmitInfo(event)}>
+        <label>Update About:</label>
+        <input
+          type="text"
+          defaultValue={""}
+          onChange={(event) => setaboutAg(event.target.value)}
+        />
+        <br />
+        <label>Update Fees:</label>
+        <input
+          type="text"
+          onChange={(event) => setFees(event.target.value)}
+        />
+        <br />
+        <label>Update Goals:</label>
+        <input type="text" onChange={(event) => setGoals(event.target.value)} />
+        <br />
+        <label>Update Type of Pets:</label>
+        <input type="text" onChange={(event) => setType(event.target.value)} />
+        <br />
+        <button type="submit">Update</button>
+      </form>
       <div>
         <h2>Preferred User Characteristics</h2>
         <div>
@@ -154,38 +223,11 @@ const ProfileAgency = () => {
         </form>
       </div>
       <div>
-        <h2>Contact Information</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Street</th>
-              <td>{contact.street}</td>4
-            </tr>
-            <tr>
-              <th>City</th>
-              <td>{contact.city}</td>
-            </tr>
-            <tr>
-              <th>State</th>
-              <td>{contact.state}</td>
-            </tr>
-            <tr>
-              <th>Zip Code</th>
-              <td>{contact.zip}</td>
-            </tr>
-            <tr>
-              <th>Phone Number</th>
-              <td>{contact.phone}</td>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <div>
           <h2>Available Pets</h2>
         {pets &&
           pets.map((pets, key) => {
             return (
-              <div>
+              <div key={key}>
                 <table>
                   <thead>
                     <tr>
