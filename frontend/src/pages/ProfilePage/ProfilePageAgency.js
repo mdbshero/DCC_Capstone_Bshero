@@ -104,6 +104,12 @@ const ProfileAgency = () => {
     );
     getUserAboutMeInfo();
   }
+  async function petDelete (_id, e) {
+    e.preventDefault();        
+    let res = await axios.delete(`http://localhost:3011/api/agency/${user._id}/deletePet/${_id}`); 
+    console.log(res)
+    getUserAboutMeInfo();
+};
 
   useEffect(() => {
     getUserAboutMeInfo();
@@ -112,15 +118,6 @@ const ProfileAgency = () => {
   return (
     <div>
       <img src={`http://localhost:3011/${image}`}></img>
-      {/* <form id="About" onSubmit={(event) => handleSubmitAbout(event)}>
-        <label>Update About me:</label>
-        <textarea
-        type="text"
-        defaultValue={""}
-        onChange={(event) => setNewAbout(event.target.value)}
-        />
-        <button type="submit">Update</button>
-    </form> */}
       <div>
         <h2>Contact Information</h2>
         <table>
@@ -273,16 +270,17 @@ const ProfileAgency = () => {
                       <th>Personality</th>
                       <td>{pets.personality}</td>
                     </tr>
+                    <tr>Delete</tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>
-                        {/* <button
-                          onClick={(e) => postDelete(userData._id, e)}
+                        <button
+                          onClick={(e) => petDelete(pets._id, e)}
                           type="submit"
                         >
                           Delete
-                        </button> */}
+                        </button>
                       </td>
                     </tr>
                   </tbody>
