@@ -7,27 +7,23 @@ const ProfileAgency = () => {
   const { user } = useContext(AuthContext);
   const [about, setAbout] = useState("");
   const [newAbout, setNewAbout] = useState("");
-  const [image, setImage] = useState("");
-  const [ver, setVer] = useState("");
-  const [pref, setPref] = useState("");
-  const [newPref, setNewPref] = useState("");
   const [contact, setContact] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState();
   const [phone, setPhone] = useState();
   const [usState, setUsState] = useState("");
+  const [image, setImage] = useState("");
   const jwt = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${jwt}` } };
 
   async function getUserAboutMeInfo() {
     let userInfo = await axios.get(
-      `http://localhost:3011/api/users/${user._id}`
+      `http://localhost:3011/api/agency/${user._id}`
     );
-    setAbout(userInfo.data.aboutMe);
+    console.log(userInfo.data)
+    setAbout(userInfo.data.about);
     setImage(userInfo.data.image);
-    setVer(userInfo.data.verification);
-    setPref(userInfo.data.prefPet);
     setContact(userInfo.data.contact);
   }
 
@@ -36,17 +32,17 @@ const ProfileAgency = () => {
     let newAboutMe = {
       aboutMe: newAbout,
     };
-    await axios.put(`http://localhost:3011/api/users/${user._id}`, newAboutMe);
+    await axios.put(`http://localhost:3011/api/agency/${user._id}`, newAboutMe);
     getUserAboutMeInfo();
   }
-  async function handleSubmitPref(event) {
-    event.preventDefault();
-    let newPrefPet = {
-      prefPet: newPref,
-    };
-    await axios.put(`http://localhost:3011/api/users/${user._id}`, newPrefPet);
-    getUserAboutMeInfo();
-  }
+//   async function handleSubmitPref(event) {
+//     event.preventDefault();
+//     let newPrefPet = {
+//       prefPet: newPref,
+//     };
+//     await axios.put(`http://localhost:3011/api/users/${user._id}`, newPrefPet);
+//     getUserAboutMeInfo();
+//   }
   async function handleSubmitContact(event) {
     event.preventDefault();
     let newContact = {
@@ -58,7 +54,7 @@ const ProfileAgency = () => {
     };
     console.log(newContact)
     await axios.put(
-      `http://localhost:3011/api/users/${user._id}/contact`,
+      `http://localhost:3011/api/agency/${user._id}/contact`,
       newContact
     );
     getUserAboutMeInfo();
@@ -71,7 +67,7 @@ const ProfileAgency = () => {
   return (
     <div>
       <img src={`http://localhost:3011/${image}`}></img>
-      <form id="AboutMe" onSubmit={(event) => handleSubmitAbout(event)}>
+      {/* <form id="About" onSubmit={(event) => handleSubmitAbout(event)}>
         <label>Update About me:</label>
         <textarea
           type="text"
@@ -79,7 +75,7 @@ const ProfileAgency = () => {
           onChange={(event) => setNewAbout(event.target.value)}
         />
         <button type="submit">Update</button>
-      </form>
+      </form> */}
       <h2>Update Contact Information:</h2>
       <form id="Contact" onSubmit={(event) => handleSubmitContact(event)}>
         <label>Update street:</label>
@@ -111,102 +107,13 @@ const ProfileAgency = () => {
         <br />
         <button type="submit">Update</button>
       </form>
-      <div>
+      {/* <div>
         <h2>About Me</h2>
         <div>
           <p>{about}</p>
         </div>
-      </div>
-      <div>
-        <h2>Verification</h2>
-        <table>
-          <tr>
-            <th>Employment</th>
-            <td>{ver.employment}</td>
-          </tr>
-          <tr>
-            <th>Type of Home</th>
-            <td>{ver.homeType}</td>
-          </tr>
-          <tr>
-            <th>Housing Status</th>
-            <td>{ver.homeStatus}</td>
-          </tr>
-          <tr>
-            <th>Time in Home</th>
-            <td>{ver.homeTime}</td>
-          </tr>
-          <tr>
-            <th>Home Noise Level</th>
-            <td>{ver.homeNoise}</td>
-          </tr>
-          <tr>
-            <th>Landlord Name:</th>
-            <td>{ver.landName}</td>
-          </tr>
-          <tr>
-            <th>Landlord Number</th>
-            <td>{ver.landNumber}</td>
-          </tr>
-          <tr>
-            <th>Number of Adults</th>
-            <td>{ver.aNum}</td>
-          </tr>
-          <tr>
-            <th>Number of Children</th>
-            <td>{ver.cNum}</td>
-          </tr>
-          <tr>
-            <th>Reason for Adoption</th>
-            <td>{ver.adoptReason}</td>
-          </tr>
-          <tr>
-            <th>Average time pet will be alone per day</th>
-            <td>{ver.petHours}</td>
-          </tr>
-          <tr>
-            <th>Where pet will be kept during day</th>
-            <td>{ver.petLoca}</td>
-          </tr>
-          <tr>
-            <th>Where pet will sleep</th>
-            <td>{ver.petSleep}</td>
-          </tr>
-          <tr>
-            <th>Fencing</th>
-            <td>{ver.fence}</td>
-          </tr>
-          <tr>
-            <th>Veterinarian Name</th>
-            <td>{ver.vetName}</td>
-          </tr>
-          <tr>
-            <th>Veterinarian Number</th>
-            <td>{ver.vetNumber}</td>
-          </tr>
-          <tr>
-            <th>Preferred Temperment</th>
-            <td>{ver.prefTemp}</td>
-          </tr>
-          <tr>
-            <th>Dislikes</th>
-            <td>{ver.petDis}</td>
-          </tr>
-          <tr>
-            <th>Pet Energy Level</th>
-            <td>{ver.petEn}</td>
-          </tr>
-          <tr>
-            <th>Ideals</th>
-            <td>{ver.petIdeal}</td>
-          </tr>
-          <tr>
-            <th>Untolerable Habits</th>
-            <td>{ver.petBadhab}</td>
-          </tr>
-        </table>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <h2>Preferred Pet Characteristics</h2>
         <div>
           <p>{pref}</p>
@@ -220,10 +127,11 @@ const ProfileAgency = () => {
           />
           <button type="submit">Update</button>
         </form>
-      </div>
+      </div> */}
       <div>
         <h2>Contact Information</h2>
         <table>
+            <thead>
           <tr>
             <th>Street</th>
             <td>{contact.street}</td>4
@@ -244,6 +152,7 @@ const ProfileAgency = () => {
             <th>Phone Number</th>
             <td>{contact.phone}</td>
           </tr>
+          </thead>
         </table>
       </div>
     </div>

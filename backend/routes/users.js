@@ -345,6 +345,7 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
     agency.contact.city = req.body.city;
     agency.contact.zip = req.body.zip;
     agency.contact.phone = req.body.phone;
+    agency.contact.state = req.body.state;
     await agency.save();
     return res.status(201).send(agency);
   } catch (error) {
@@ -431,6 +432,31 @@ router.put("/agency/:agencyId/accept/:userId", async (req, res) => {
     }
   } else {
     res.status(403)("You cannot verify yourself!");
+  }
+});
+
+//GET Agency by Id
+router.get("/agency/:agencyId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    return res.send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//PUT add a preferred user
+router.put("/agency/:agencyId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Agency with id ${req.params.agencyId} does not exist!`);
+    let prefUser = await Agency.findByIdAndUpdate(req.params.agencyId, req.body);
+    return res.send(prefUser);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
 
