@@ -266,7 +266,7 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
 // Get all agencies
 router.get("/agency", [auth], async (req, res) => {
   try {
-    console.log(req.agency);
+    // console.log(req.body);
     const agency = await Agency.find();
     return res.send(agency);
   } catch (ex) {
