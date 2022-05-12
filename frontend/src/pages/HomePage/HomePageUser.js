@@ -11,9 +11,9 @@ const HomePageUser = () => {
 
   async function localAgencies() {
     setAgencies([]);
-    console.log(jwt)
-    let res = await axios.get(`http://localhost:3011/api/agency`, {headers : { "x-auth-token": jwt}});
-    console.log(res)
+    let res = await axios.get(`http://localhost:3011/api/agency`, {
+      headers: { "x-auth-token": jwt },
+    });
     for (let i = 0; i < res.data.length; i++) {
       setAgencies((agencies) => [...agencies, res.data[i]]);
     }
@@ -41,13 +41,22 @@ const HomePageUser = () => {
                     <td key={index}>
                       <img src={`http://localhost:3011/${a.image}`}></img>
                       <h5>{a.name}</h5>
-                      {/* <button
-                        type="submit"
-                        id="SendPendingButton"
-                        onClick={(event) => handlePendingSubmit(event, a)}
-                      >
-                        Send Request
-                      </button> */}
+                      {a.pets &&
+                        a.pets.map((pet, index) => {
+                          return (
+                            <div>
+                              <img
+                                src={`http://localhost:3011/${pet.image}`}
+                              ></img>
+                              <h6>{pet.name}</h6>
+                              <h6>{pet.name}</h6>
+                              <h6>{pet.type}</h6>
+                              <h6>{pet.age}</h6>
+                              <h6>{pet.breed}</h6>
+                              <h6>{pet.personality}</h6>
+                            </div>
+                          );
+                        })}
                     </td>
                   </tr>
                 );

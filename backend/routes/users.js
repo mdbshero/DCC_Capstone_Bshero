@@ -373,7 +373,7 @@ router.put("/agency/:agencyId/about", async (req, res) => {
 });
 
 //PUT upload a pet into an agency profile
-router.put("/agency/:agencyId/pets", async (req, res) => {
+router.put("/agency/:agencyId/pets", fileUpload.single("image"), async (req, res) => {
   try {
     let agency = await Agency.findById(req.params.agencyId);
     if (!agency)
@@ -382,6 +382,7 @@ router.put("/agency/:agencyId/pets", async (req, res) => {
         .send(`Agency with Id of ${req.params.agencyId} does not exist!`);
 
     let newPet = new Pet({
+      image: req.file.path,
       name: req.body.name,
       type: req.body.type,
       age: req.body.age,
