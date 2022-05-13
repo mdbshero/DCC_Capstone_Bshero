@@ -60,30 +60,25 @@ const VerPageAgency = () => {
 //     getUserFavoritesInfo();
 //   }
 
-  //   async function handleClickDecline(event, declined) {
-  //     event.preventDefault();
-  //     setFriends([]);
-  //     setPending([]);
-  //     let mainUser = user._id;
-  //     console.log(declined._id);
-  //     await axios.delete(
-  //       `http://localhost:3011/api/users/${mainUser}/decline/${declined._id}`
-  //     );
-  //     getUserFriendInfo();
-  //   }
+    async function handleClickDecline(event, declined) {
+      event.preventDefault();
+      setVer([]);
+      setPending([]);
+      let mainUser = user._id;
+      await axios.delete(
+        `http://localhost:3011/api/agency/${mainUser}/decline/${declined._id}`
+      );
+      getAgencyUserInfo();
+    }
 
-  //   async function handleClickAccept(event, accepted) {
-  //     event.preventDefault();
-  //     setFriends([]);
-  //     setPending([]);
-  //     let mainUser = user._id;
-  //     accepted = {
-  //       userId: accepted._id,
-  //     };
-  //     //console.log(unfollowed);
-  //     await axios.put(`http://localhost:3011/api/users/${mainUser}`, accepted);
-  //     getUserFriendInfo();
-  //   }
+    async function handleClickAccept(event, accepted) {
+      event.preventDefault();
+      setVer([]);
+      setPending([]);
+      let mainUser = user._id;
+      await axios.put(`http://localhost:3011/api/agency/${mainUser}/accept/${accepted._id}`, accepted);
+      getAgencyUserInfo();
+    }
 
   //   async function handlePendingSubmit(event, requested) {
   //     event.preventDefault();
