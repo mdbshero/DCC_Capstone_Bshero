@@ -6,10 +6,9 @@ import jwtDecode from "jwt-decode";
 
 const VerPageAgency = () => {
   const [agencyPending, setAgencyPending] = useState([]);
-  const [userVer, setUserVer] = useState([]);
+  const [agencyVer, setAgencyVer] = useState([]);
   const [pending, setPending] = useState([]);
-//   const [ver, setVer] = useState([]);
-  //const [allPeople, setAllPeople] = useState([]);
+  const [ver, setVer] = useState([]);
   const jwt = localStorage.getItem("token");
   const config = { headers: { Authorization: "Bearer " + jwt } };
   const { user } = useContext(AuthContext);
@@ -17,27 +16,16 @@ const VerPageAgency = () => {
   async function getAgencyUserInfo() {
     console.log(user._id);
     setAgencyPending([]);
-    // setUserVer([]);
+    setAgencyVer([]);
     setPending([]);
-    // setVer([]);
+    setVer([]);
     let agencyInfo = await axios.get(
       `http://localhost:3011/api/agency/${user._id}`
     );
     console.log(agencyInfo.data.pendingUser)
     setAgencyPending(agencyInfo.data.pendingUser);
-    // setUserVer(agencyInfo.data.verAgency);
+    setAgencyVer(agencyInfo.data.verUser);
   }
-
-  //   async function getAll() {
-  //     setAllPeople([]);
-  //     console.log(jwt);
-  //     let res = await axios.get(`http://localhost:3011/api/users`, config);
-  //     for (let i = 0; i < res.data.length; i++) {
-  //       if (user._id !== res.data[i]._id) {
-  //         setAllPeople((allPeople) => [...allPeople, res.data[i]]);
-  //       }
-  //     }
-  //   }
 
   async function getAgencyPending() {
     setPending([]);
@@ -51,16 +39,16 @@ const VerPageAgency = () => {
     }
   }
 
-    // async function getVerAgencyInfo() {
-    //   setVer([]);
-    //   for (let i = 0; i < userVer.length; i++) {
-    //     await axios
-    //       .get(`http://localhost:3011/api/agency/${userVer[i]}`)
-    //       .then((response) =>
-    //         setVer((ver) => [...ver, response.data])
-    //       );
-    //   }
-    // }
+    async function getVerUserInfo() {
+      setVer([]);
+      for (let i = 0; i < agencyVer.length; i++) {
+        await axios
+          .get(`http://localhost:3011/api/users/${agencyVer[i]}`)
+          .then((response) =>
+            setVer((ver) => [...ver, response.data])
+          );
+      }
+    }
 
 //   async function handleClickUnFavorite(event, unfavorited) {
 //     event.preventDefault();
@@ -118,9 +106,9 @@ const VerPageAgency = () => {
     getAgencyPending();
   }, [agencyPending]);
 
-    // useEffect(() => {
-    //   getVerAgencyInfo();
-    // }, [userVer]);
+    useEffect(() => {
+      getVerUserInfo();
+    }, [agencyVer]);
   return (
     <div>
       <h3>Friends Page for {user.name}!</h3>
@@ -129,19 +117,19 @@ const VerPageAgency = () => {
           <table>
             <thead>
               <tr>
-                <th>Favorites</th>
+                <th>Verfied Users</th>
               </tr>
             </thead>
             <tbody>
-              {pending &&
-                pending.map((pend, index) => {
+              {ver &&
+                ver.map((v, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <img
-                          src={`http://localhost:3011/${pend.image}`}
+                          src={`http://localhost:3011/${v.image}`}
                         ></img>
-                        <h5>{pend.name}</h5>
+                        <h5>{v.name}</h5>
                         {/* <button
                           type="submit"
                           id="deleteFavoriteButton"
@@ -158,29 +146,26 @@ const VerPageAgency = () => {
             </tbody>
           </table>
         </div>
-        {/* <div>
+        <div>
           <table>
             <thead>
               <tr>
-                <th> Verified Agencies </th>
+                <th> Pending User Requests </th>
               </tr>
             </thead>
             <tbody>
-              {ver &&
-                ver.map((v, index) => {
+            {pending &&
+                pending.map((pend, index) => {
                   return (
                     <tr key={index}>
                       <td>
-                        <img src={`http://localhost:3011/${v.image}`}></img>
-                        <h5>{v.name}</h5>
-                        <h5>{v.contact.street}</h5>
-                        <h5>{v.contact.city}</h5>
-                        <h5>{v.contact.state}</h5>
-                        <h5>{v.contact.zip}</h5>
-                        <h5>{v.contact.phone}</h5>
-                        <button
-                          type="delete"
-                          id="declinePendingButton"
+                        <img
+                          src={`http://localhost:3011/${pend.image}`}
+                        ></img>
+                        <h5>{pend.name}</h5>
+                        {/* <button
+                          type="accept"
+                          id="acceptPendingButton"
                           onClick={(event) => handleClickAccept(event, e)}
                         >
                           Accept
@@ -191,14 +176,14 @@ const VerPageAgency = () => {
                           onClick={(event) => handleClickDecline(event, e)}
                         >
                           Decline
-                        </button>
+                        </button> */}
                       </td>
                     </tr>
                   );
                 })}
             </tbody>
           </table>
-        </div> */}
+        </div>
         {/* <div className="col-sm">
           <table className="table">
             <thead>
