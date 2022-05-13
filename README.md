@@ -1,6 +1,3 @@
-# SocialMedia_StarterCode-FullStack
-Starter code for Social Media with both front/backend and working authentication system for user registration, log in, and log out.
-
 ## Directions for Set Up
 
 1. Download the .zip file of the source code to your computer. (If you choose to clone the repository, make sure to remove the `.git` folder from the root directory).

@@ -3,6 +3,7 @@ const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const { contactSchema } = require("./contact");
 const { verificationSchema } = require("./verification");
+const { geoSchema } = require("./geo");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true, minLength: 5, maxLength: 50 },
@@ -21,7 +22,8 @@ const userSchema = mongoose.Schema({
   verAgency: [{type: mongoose.Types.ObjectId}],
   isAdmin: { type: Boolean, required: true },
   prefPet: { type: String, minLength: 4, maxLength: 1024 },
-  image: { type: String, default: ""}
+  image: { type: String, default: ""},
+  geo: {type: geoSchema, default: {}}
 });
 
 userSchema.methods.generateAuthToken = function () {

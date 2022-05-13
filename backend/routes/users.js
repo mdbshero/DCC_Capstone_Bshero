@@ -128,9 +128,10 @@ router.put("/users/:userId/contact", async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`User with Id of ${req.params.userId} does not exist!`);
     user.contact.street = req.body.street;
     user.contact.city = req.body.city;
+    user.contact.state = req.body.state;
     user.contact.zip = req.body.zip;
     user.contact.phone = req.body.phone;
     await user.save();
@@ -147,7 +148,7 @@ router.put("/users/:userId/verification", async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`User with Id of ${req.params.userId} does not exist!`);
     user.verification.employment = req.body.employment;
     user.verification.homeType = req.body.homeType;
     user.verification.homeStatus = req.body.homeStatus;
@@ -242,7 +243,7 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
     try {
       const agency = await Agency.findByIdAndUpdate(req.params.agencyId);
       const user = await User.findById(req.params.userId);
-      if (!user.verAgency.includes(req.params.agencyId)) {
+      if (!agency.pendingUser.includes(req.params.userId) && !agency.verUser.includes(req.params.userId)) {
         await agency.updateOne({
           $push: { pendingUser: req.params.userId },
         });
@@ -265,7 +266,6 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
 // Get all agencies
 router.get("/agency", [auth], async (req, res) => {
   try {
-    console.log(req.agency);
     const agency = await Agency.find();
     return res.send(agency);
   } catch (ex) {
@@ -339,11 +339,31 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
     if (!agency)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`Agency with Id of ${req.params.userId} does not exist!`);
     agency.contact.street = req.body.street;
     agency.contact.city = req.body.city;
     agency.contact.zip = req.body.zip;
     agency.contact.phone = req.body.phone;
+    agency.contact.state = req.body.state;
+    await agency.save();
+    return res.status(201).send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//PUT about information (agency)
+router.put("/agency/:agencyId/about", async (req, res) => {
+  try {
+    let agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Agency with Id of ${req.params.userId} does not exist!`);
+    agency.about.aboutAgency = req.body.aboutAgency;
+    agency.about.goals = req.body.goals;
+    agency.about.typePet = req.body.typePet;
+    agency.about.fees = req.body.fees;
     await agency.save();
     return res.status(201).send(agency);
   } catch (error) {
@@ -352,7 +372,7 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
 });
 
 //PUT upload a pet into an agency profile
-router.put("/agency/:agencyId/pets", async (req, res) => {
+router.put("/agency/:agencyId/pets", fileUpload.single("image"), async (req, res) => {
   try {
     let agency = await Agency.findById(req.params.agencyId);
     if (!agency)
@@ -361,6 +381,7 @@ router.put("/agency/:agencyId/pets", async (req, res) => {
         .send(`Agency with Id of ${req.params.agencyId} does not exist!`);
 
     let newPet = new Pet({
+      image: req.file.path,
       name: req.body.name,
       type: req.body.type,
       age: req.body.age,
@@ -391,6 +412,28 @@ router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
     res.status(500).send(err);
   }
 });
+// decline an agency request
+router.delete("/agency/:agencyId/decline/:requestId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    console.log(agency.pendingUser[0]);
+    for (let i = 0; i < agency.pendingUser.length; i++) {
+      console.log(agency.pendingUser[i].toString());
+      console.log(req.params.requestId);
+
+      if (agency.pendingUser[i].toString() === req.params.requestId) {
+        console.log("trigger");
+        await agency.updateOne({
+          $pull: { pendingUser: req.params.requestId },
+        });
+        return res.status(200).send("The request has been declined!");
+      }
+    }
+    return res.status(400).send("This request does not exist");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 // PUT agencies verify users
 router.put("/agency/:agencyId/accept/:userId", async (req, res) => {
@@ -414,4 +457,67 @@ router.put("/agency/:agencyId/accept/:userId", async (req, res) => {
   }
 });
 
+//GET Agency by Id
+router.get("/agency/:agencyId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    return res.send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//PUT add a preferred user
+router.put("/agency/:agencyId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Agency with id ${req.params.agencyId} does not exist!`);
+    let prefUser = await Agency.findByIdAndUpdate(req.params.agencyId, req.body);
+    return res.send(prefUser);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//Geolocation User
+
+router.put("/users/:userId/geo", async (req, res) => {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`User with Id of ${req.params.userId} does not exist!`);
+    user.geo.country = req.body.country;
+    user.geo.regionName = req.body.regionName;
+    user.geo.city = req.body.city;
+    user.geo.zip = req.body.zip;
+    await user.save();
+    return res.status(201).send(user);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//Geolocation Agency
+router.put("/agency/:agencyId/geo", async (req, res) => {
+  try {
+    let agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.agencyId} does not exist!`);
+    agency.geo.country = req.body.country;
+    agency.geo.regionName = req.body.regionName;
+    agency.geo.city = req.body.city;
+    agency.geo.zip = req.body.zip;
+    await agency.save();
+    return res.status(201).send(agency);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 module.exports = router;

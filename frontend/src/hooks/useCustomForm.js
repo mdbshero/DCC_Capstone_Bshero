@@ -7,6 +7,8 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
     e.persist();
     if (e.target.name === "isAdmin") {
       setFormValues({ ...formData, [e.target.name]: e.target.checked });
+    } else if (e.target.name === "image") {
+      setFormValues({ ...formData, "image": e.target.files[0] });
     } else {
       setFormValues({ ...formData, [e.target.name]: e.target.value });
     }
