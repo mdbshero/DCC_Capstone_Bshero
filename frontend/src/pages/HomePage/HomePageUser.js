@@ -19,6 +19,27 @@ const HomePageUser = () => {
     }
   }
 
+  async function handleFavoriteSubmit(event, requested) {
+    event.preventDefault();
+    requested = {
+      agencyId: requested,
+    };
+    console.log(requested);
+    await axios.put(
+      `http://localhost:3011/api/users/${user._id}/favorite`,
+      requested
+    );
+    console.log(requested);
+  }
+  async function handleVerSubmit(event, requested) {
+    event.preventDefault();
+    console.log(requested);
+    await axios.put(
+      `http://localhost:3011/api/users/${user._id}/verificationReq/${requested}`
+    );
+    console.log(requested);
+  }
+
   useEffect(() => {
     localAgencies();
   }, []);
@@ -41,6 +62,20 @@ const HomePageUser = () => {
                     <td key={index}>
                       <img src={`http://localhost:3011/${a.image}`}></img>
                       <h5>{a.name}</h5>
+                      <button
+                        type="submit"
+                        id="SendFavoriteButton"
+                        onClick={(event) => handleFavoriteSubmit(event, a._id)}
+                      >
+                        Favorite
+                      </button>
+                      <button
+                        type="submit"
+                        id="SendVerificationButton"
+                        onClick={(event) => handleVerSubmit(event, a._id)}
+                      >
+                        Send Request
+                      </button>
                       {a.pets &&
                         a.pets.map((pet, index) => {
                           return (

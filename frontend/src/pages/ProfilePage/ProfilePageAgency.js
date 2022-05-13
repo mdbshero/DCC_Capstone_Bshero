@@ -251,6 +251,9 @@ const ProfileAgency = () => {
                 <table>
                   <thead>
                     <tr>
+                      <td><img src={`http://localhost:3011/${pets.image}`}></img></td>
+                    </tr>
+                    <tr>
                       <th>Name:</th>
                       <td>{pets.name}</td>
                     </tr>

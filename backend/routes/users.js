@@ -243,7 +243,7 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
     try {
       const agency = await Agency.findByIdAndUpdate(req.params.agencyId);
       const user = await User.findById(req.params.userId);
-      if (!user.verAgency.includes(req.params.agencyId)) {
+      if (!agency.pendingUser.includes(req.params.userId) && !agency.verUser.includes(req.params.userId)) {
         await agency.updateOne({
           $push: { pendingUser: req.params.userId },
         });

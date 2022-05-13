@@ -10,6 +10,7 @@ import RegisterPageAgency from "./pages/RegisterPage/RegisterPageAgency"
 import LoginPageAgency from "./pages/LoginPage/LoginPageAgency";
 import HomePageAgency from "./pages/HomePage/HomePageAgency";
 import ProfileUser from "./pages/ProfilePage/ProfilePageUser";
+import VerPageUser from "./pages/VerPage/VerPageUser"
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -48,6 +49,7 @@ function App() {
         <Route path="/profileUser" element={<ProfileUser />} />
         <Route path="/profileAgency" element={<ProfileAgency />} />
         <Route path="/verUser" element={<VerFormUser />} />
+        <Route path="/agenciesUser" element={<VerPageUser />} />
       </Routes>
       <Footer />
     </div>
