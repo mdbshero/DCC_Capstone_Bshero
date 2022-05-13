@@ -6,20 +6,31 @@ import AuthContext from "../../context/AuthContext";
 const HomePageUser = () => {
   const { user } = useContext(AuthContext);
   const [agencies, setAgencies] = useState([]);
-  const [geo, setGeo] = useState();
+  const [region, setRegion] = useState();
   const jwt = JSON.parse(localStorage.getItem("token"));
   // const config = {headers : { 'Authorization' : `Bearer ${jwt}`}};
 
   async function geoLocation() {
-    let gloc = await axios.get('http://ip-api.com/json/?fields=country,regionName,city,zip')
-    console.log(gloc.data)
+    let gloc = await axios.get(
+      "http://ip-api.com/json/?fields=country,regionName,city,zip"
+    );
     let geoInput = {
       regionName: gloc.data.regionName,
       zip: gloc.data.zip,
       country: gloc.data.country,
-      city: gloc.data.city
-    }
-    await axios.put(`http://localhost:3011/api/users/${user._id}/geo`, geoInput)
+      city: gloc.data.city,
+    };
+    await axios.put(
+      `http://localhost:3011/api/users/${user._id}/geo`,
+      geoInput
+    );
+  }
+
+  async function getUserGeo() {
+    let userInfo = await axios.get(
+      `http://localhost:3011/api/users/${user._id}`
+    );
+    setRegion(userInfo.data.geo.regionName);
   }
 
   async function localAgencies() {
@@ -28,7 +39,9 @@ const HomePageUser = () => {
       headers: { "x-auth-token": jwt },
     });
     for (let i = 0; i < res.data.length; i++) {
+      if (res.data[i].geo.regionName == region){
       setAgencies((agencies) => [...agencies, res.data[i]]);
+      }
     }
   }
 
@@ -55,8 +68,12 @@ const HomePageUser = () => {
 
   useEffect(() => {
     geoLocation();
-    localAgencies();
+    getUserGeo();
   }, []);
+
+  useEffect(() => {
+    localAgencies();
+  }, [region])
 
   return (
     <div>

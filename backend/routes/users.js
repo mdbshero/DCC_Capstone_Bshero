@@ -461,7 +461,7 @@ router.put("/agency/:agencyId", async (req, res) => {
   }
 });
 
-//Geolocation
+//Geolocation User
 
 router.put("/users/:userId/geo", async (req, res) => {
   try {
@@ -476,6 +476,25 @@ router.put("/users/:userId/geo", async (req, res) => {
     user.geo.zip = req.body.zip;
     await user.save();
     return res.status(201).send(user);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+//Geolocation Agency
+router.put("/agency/:agencyId/geo", async (req, res) => {
+  try {
+    let agency = await Agency.findById(req.params.agencyId);
+    if (!agency)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.agencyId} does not exist!`);
+    agency.geo.country = req.body.country;
+    agency.geo.regionName = req.body.regionName;
+    agency.geo.city = req.body.city;
+    agency.geo.zip = req.body.zip;
+    await agency.save();
+    return res.status(201).send(agency);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
   }
