@@ -163,20 +163,20 @@ const VerPageAgency = () => {
                           src={`http://localhost:3011/${pend.image}`}
                         ></img>
                         <h5>{pend.name}</h5>
-                        {/* <button
+                        <button
                           type="accept"
                           id="acceptPendingButton"
-                          onClick={(event) => handleClickAccept(event, e)}
+                          onClick={(event) => handleClickAccept(event, pend)}
                         >
                           Accept
                         </button>
                         <button
                           type="delete"
                           id="declinePendingButton"
-                          onClick={(event) => handleClickDecline(event, e)}
+                          onClick={(event) => handleClickDecline(event, pend)}
                         >
                           Decline
-                        </button> */}
+                        </button>
                       </td>
                     </tr>
                   );

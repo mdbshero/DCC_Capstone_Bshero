@@ -128,7 +128,7 @@ router.put("/users/:userId/contact", async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`User with Id of ${req.params.userId} does not exist!`);
     user.contact.street = req.body.street;
     user.contact.city = req.body.city;
     user.contact.state = req.body.state;
@@ -148,7 +148,7 @@ router.put("/users/:userId/verification", async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`User with Id of ${req.params.userId} does not exist!`);
     user.verification.employment = req.body.employment;
     user.verification.homeType = req.body.homeType;
     user.verification.homeStatus = req.body.homeStatus;
@@ -266,7 +266,6 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
 // Get all agencies
 router.get("/agency", [auth], async (req, res) => {
   try {
-    // console.log(req.body);
     const agency = await Agency.find();
     return res.send(agency);
   } catch (ex) {
@@ -340,7 +339,7 @@ router.put("/agency/:agencyId/contact", async (req, res) => {
     if (!agency)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`Agency with Id of ${req.params.userId} does not exist!`);
     agency.contact.street = req.body.street;
     agency.contact.city = req.body.city;
     agency.contact.zip = req.body.zip;
@@ -360,7 +359,7 @@ router.put("/agency/:agencyId/about", async (req, res) => {
     if (!agency)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`Agency with Id of ${req.params.userId} does not exist!`);
     agency.about.aboutAgency = req.body.aboutAgency;
     agency.about.goals = req.body.goals;
     agency.about.typePet = req.body.typePet;
@@ -409,6 +408,28 @@ router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
       }
     }
     return res.status(400).send("you cannot remove other agency's pets");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+// decline an agency request
+router.delete("/agency/:agencyId/decline/:requestId", async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    console.log(agency.pendingUser[0]);
+    for (let i = 0; i < agency.pendingUser.length; i++) {
+      console.log(agency.pendingUser[i].toString());
+      console.log(req.params.requestId);
+
+      if (agency.pendingUser[i].toString() === req.params.requestId) {
+        console.log("trigger");
+        await agency.updateOne({
+          $pull: { pendingUser: req.params.requestId },
+        });
+        return res.status(200).send("The request has been declined!");
+      }
+    }
+    return res.status(400).send("This request does not exist");
   } catch (err) {
     res.status(500).send(err);
   }
@@ -469,7 +490,7 @@ router.put("/users/:userId/geo", async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .send(`Post with Id of ${req.params.userId} does not exist!`);
+        .send(`User with Id of ${req.params.userId} does not exist!`);
     user.geo.country = req.body.country;
     user.geo.regionName = req.body.regionName;
     user.geo.city = req.body.city;

@@ -25,9 +25,9 @@ const verificationSchema = new mongoose.Schema({
     petEn: {type: String, minLength: 3, required: true, default: "     " },
     petIdeal: {type: String, minLength: 3, required: true, default: "     " },
     petBadHab: {type: String, minLength: 3, required: true, default: "     " },
-    agreeOne: {type: String, required: true, default: "" },
-    agreeTwo: {type: String, required: true, default: "" },
-    agreeThree: {type: String, required: true, default: "" },
+    agreeOne: {type: String, required: true, default: " " },
+    agreeTwo: {type: String, required: true, default: " " },
+    agreeThree: {type: String, required: true, default: " " },
 });
 
 const Verification = mongoose.model("Verification", verificationSchema);
