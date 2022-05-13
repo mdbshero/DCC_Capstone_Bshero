@@ -461,4 +461,23 @@ router.put("/agency/:agencyId", async (req, res) => {
   }
 });
 
+//Geolocation
+
+router.put("/users/:userId/geo", async (req, res) => {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user)
+      return res
+        .status(400)
+        .send(`Post with Id of ${req.params.userId} does not exist!`);
+    user.geo.country = req.body.country;
+    user.geo.regionName = req.body.regionName;
+    user.geo.city = req.body.city;
+    user.geo.zip = req.body.zip;
+    await user.save();
+    return res.status(201).send(user);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
 module.exports = router;

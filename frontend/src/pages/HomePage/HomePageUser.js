@@ -6,8 +6,21 @@ import AuthContext from "../../context/AuthContext";
 const HomePageUser = () => {
   const { user } = useContext(AuthContext);
   const [agencies, setAgencies] = useState([]);
+  const [geo, setGeo] = useState();
   const jwt = JSON.parse(localStorage.getItem("token"));
   // const config = {headers : { 'Authorization' : `Bearer ${jwt}`}};
+
+  async function geoLocation() {
+    let gloc = await axios.get('http://ip-api.com/json/?fields=country,regionName,city,zip')
+    console.log(gloc.data)
+    let geoInput = {
+      regionName: gloc.data.regionName,
+      zip: gloc.data.zip,
+      country: gloc.data.country,
+      city: gloc.data.city
+    }
+    await axios.put(`http://localhost:3011/api/users/${user._id}/geo`, geoInput)
+  }
 
   async function localAgencies() {
     setAgencies([]);
@@ -41,6 +54,7 @@ const HomePageUser = () => {
   }
 
   useEffect(() => {
+    geoLocation();
     localAgencies();
   }, []);
 
@@ -58,8 +72,8 @@ const HomePageUser = () => {
             {agencies &&
               agencies.map((a, index) => {
                 return (
-                  <tr>
-                    <td key={index}>
+                  <tr key={index}>
+                    <td>
                       <img src={`http://localhost:3011/${a.image}`}></img>
                       <h5>{a.name}</h5>
                       <button
@@ -79,7 +93,7 @@ const HomePageUser = () => {
                       {a.pets &&
                         a.pets.map((pet, index) => {
                           return (
-                            <div>
+                            <div key={index}>
                               <img
                                 src={`http://localhost:3011/${pet.image}`}
                               ></img>
