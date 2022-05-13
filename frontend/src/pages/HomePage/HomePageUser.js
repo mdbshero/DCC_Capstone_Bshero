@@ -39,7 +39,7 @@ const HomePageUser = () => {
       headers: { "x-auth-token": jwt },
     });
     for (let i = 0; i < res.data.length; i++) {
-      if (res.data[i].geo.regionName == region){
+      if (res.data[i].contact.state == region){
       setAgencies((agencies) => [...agencies, res.data[i]]);
       }
     }

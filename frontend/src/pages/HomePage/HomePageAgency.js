@@ -39,8 +39,8 @@ const HomePageAgency = () => {
       headers: { "x-auth-token": jwt },
     });
     for (let i = 0; i < res.data.length; i++) {
-      console.log(res.data[i].geo.regionName)
-      if (res.data[i].geo.regionName == region){
+      console.log(res.data[i].contact.state)
+      if (res.data[i].contact.state == region){
       setPetParents((petParents) => [...petParents, res.data[i]]);
       }
     }
