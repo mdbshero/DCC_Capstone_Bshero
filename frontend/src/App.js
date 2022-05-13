@@ -11,6 +11,7 @@ import LoginPageAgency from "./pages/LoginPage/LoginPageAgency";
 import HomePageAgency from "./pages/HomePage/HomePageAgency";
 import ProfileUser from "./pages/ProfilePage/ProfilePageUser";
 import VerPageUser from "./pages/VerPage/VerPageUser"
+import VerPageAgency from "./pages/VerPage/VerPageAgency"
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -50,6 +51,7 @@ function App() {
         <Route path="/profileAgency" element={<ProfileAgency />} />
         <Route path="/verUser" element={<VerFormUser />} />
         <Route path="/agenciesUser" element={<VerPageUser />} />
+        <Route path="/usersAgency" element={<VerPageAgency />} />
       </Routes>
       <Footer />
     </div>
