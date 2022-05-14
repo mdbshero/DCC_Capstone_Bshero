@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import jwtDecode from "jwt-decode";
+import NavbarUser from "../../components/NavBar/NavBarUser";
 
 const VerPageUser = () => {
   const [userFavorites, setUserFavorites] = useState([]);
@@ -70,67 +71,70 @@ const VerPageUser = () => {
   }, [userVer]);
   return (
     <div>
-      <h3>Friends Page for {user.name}!</h3>
+      <NavbarUser />
       <div>
+        <h3>Friends Page for {user.name}!</h3>
         <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Favorites</th>
-              </tr>
-            </thead>
-            <tbody>
-              {favorites &&
-                favorites.map((favorite, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <img
-                          src={`http://localhost:3011/${favorite.image}`}
-                        ></img>
-                        <h5>{favorite.name}</h5>
-                        <button
-                          type="submit"
-                          id="deleteFavoriteButton"
-                          onClick={(event) =>
-                            handleClickUnFavorite(event, favorite)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th> Verified Agencies </th>
-              </tr>
-            </thead>
-            <tbody>
-              {ver &&
-                ver.map((v, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <img src={`http://localhost:3011/${v.image}`}></img>
-                        <h5>{v.name}</h5>
-                        <h5>{v.contact.street}</h5>
-                        <h5>{v.contact.city}</h5>
-                        <h5>{v.contact.state}</h5>
-                        <h5>{v.contact.zip}</h5>
-                        <h5>{v.contact.phone}</h5>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Favorites</th>
+                </tr>
+              </thead>
+              <tbody>
+                {favorites &&
+                  favorites.map((favorite, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <img
+                            src={`http://localhost:3011/${favorite.image}`}
+                          ></img>
+                          <h5>{favorite.name}</h5>
+                          <button
+                            type="submit"
+                            id="deleteFavoriteButton"
+                            onClick={(event) =>
+                              handleClickUnFavorite(event, favorite)
+                            }
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th> Verified Agencies </th>
+                </tr>
+              </thead>
+              <tbody>
+                {ver &&
+                  ver.map((v, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <img src={`http://localhost:3011/${v.image}`}></img>
+                          <h5>{v.name}</h5>
+                          <h5>{v.contact.street}</h5>
+                          <h5>{v.contact.city}</h5>
+                          <h5>{v.contact.state}</h5>
+                          <h5>{v.contact.zip}</h5>
+                          <h5>{v.contact.phone}</h5>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
+import NavbarUser from "../../components/NavBar/NavBarUser";
 
 const HomePageUser = () => {
   const { user } = useContext(AuthContext);
@@ -39,8 +40,8 @@ const HomePageUser = () => {
       headers: { "x-auth-token": jwt },
     });
     for (let i = 0; i < res.data.length; i++) {
-      if (res.data[i].contact.state == region){
-      setAgencies((agencies) => [...agencies, res.data[i]]);
+      if (res.data[i].contact.state == region) {
+        setAgencies((agencies) => [...agencies, res.data[i]]);
       }
     }
   }
@@ -73,62 +74,67 @@ const HomePageUser = () => {
 
   useEffect(() => {
     localAgencies();
-  }, [region])
+  }, [region]);
 
   return (
     <div>
-      <h1 className="container">Home Page for User: {user.name}!</h1>
+      <NavbarUser />
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Local Agencies</th>
-            </tr>
-          </thead>
-          <tbody>
-            {agencies &&
-              agencies.map((a, index) => {
-                return (
-                  <tr key={index}>
-                    <td>
-                      <img src={`http://localhost:3011/${a.image}`}></img>
-                      <h5>{a.name}</h5>
-                      <button
-                        type="submit"
-                        id="SendFavoriteButton"
-                        onClick={(event) => handleFavoriteSubmit(event, a._id)}
-                      >
-                        Favorite
-                      </button>
-                      <button
-                        type="submit"
-                        id="SendVerificationButton"
-                        onClick={(event) => handleVerSubmit(event, a._id)}
-                      >
-                        Send Request
-                      </button>
-                      {a.pets &&
-                        a.pets.map((pet, index) => {
-                          return (
-                            <div key={index}>
-                              <img
-                                src={`http://localhost:3011/${pet.image}`}
-                              ></img>
-                              <h6>{pet.name}</h6>
-                              <h6>{pet.name}</h6>
-                              <h6>{pet.type}</h6>
-                              <h6>{pet.age}</h6>
-                              <h6>{pet.breed}</h6>
-                              <h6>{pet.personality}</h6>
-                            </div>
-                          );
-                        })}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <h1 className="container">Home Page for User: {user.name}!</h1>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Local Agencies</th>
+              </tr>
+            </thead>
+            <tbody>
+              {agencies &&
+                agencies.map((a, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>
+                        <img src={`http://localhost:3011/${a.image}`}></img>
+                        <h5>{a.name}</h5>
+                        <button
+                          type="submit"
+                          id="SendFavoriteButton"
+                          onClick={(event) =>
+                            handleFavoriteSubmit(event, a._id)
+                          }
+                        >
+                          Favorite
+                        </button>
+                        <button
+                          type="submit"
+                          id="SendVerificationButton"
+                          onClick={(event) => handleVerSubmit(event, a._id)}
+                        >
+                          Send Request
+                        </button>
+                        {a.pets &&
+                          a.pets.map((pet, index) => {
+                            return (
+                              <div key={index}>
+                                <img
+                                  src={`http://localhost:3011/${pet.image}`}
+                                ></img>
+                                <h6>{pet.name}</h6>
+                                <h6>{pet.name}</h6>
+                                <h6>{pet.type}</h6>
+                                <h6>{pet.age}</h6>
+                                <h6>{pet.breed}</h6>
+                                <h6>{pet.personality}</h6>
+                              </div>
+                            );
+                          })}
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

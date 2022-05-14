@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
+import NavbarAgency from "../../components/NavBar/NavBarAgency";
 
 const ProfileAgency = () => {
   const { user } = useContext(AuthContext);
@@ -116,6 +117,8 @@ const ProfileAgency = () => {
   }, []);
 
   return (
+    <div>
+      <NavbarAgency/>
     <div>
       <img src={`http://localhost:3011/${image}`}></img>
       <div>
@@ -322,6 +325,7 @@ const ProfileAgency = () => {
         <br />
         <button type="submit">Update</button>
       </form>
+    </div>
     </div>
   );
 };

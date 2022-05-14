@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
+import NavbarUser from "../NavBar/NavBarUser";
 
 const VerFormUser = () => {
   const { user } = useContext(AuthContext);
@@ -80,6 +81,8 @@ const VerFormUser = () => {
   }, []);
 
   return (
+    <div>
+      <NavbarUser/>
     <div>
       <div>
         <h2>Update Verification Information:</h2>
@@ -298,6 +301,7 @@ const VerFormUser = () => {
           </tr>
         </table>
       </div>
+    </div>
     </div>
   );
 };

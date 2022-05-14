@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
+import NavbarUser from "../../components/NavBar/NavBarUser";
 
 const ProfileUser = () => {
   const { user } = useContext(AuthContext);
@@ -69,6 +70,8 @@ const ProfileUser = () => {
   }, []);
 
   return (
+    <div>
+      <NavbarUser/>
     <div>
       <img src={`http://localhost:3011/${image}`}></img>
       <form id="AboutMe" onSubmit={(event) => handleSubmitAbout(event)}>
@@ -246,6 +249,7 @@ const ProfileUser = () => {
           </tr>
         </table>
       </div>
+    </div>
     </div>
   );
 };

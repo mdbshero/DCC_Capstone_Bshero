@@ -3,6 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
+import NavbarAgency from "../../components/NavBar/NavBarAgency";
 
 const LoginPageAgency = () => {
   const { loginAgency, isServerError } = useContext(AuthContext);
@@ -19,6 +20,7 @@ const LoginPageAgency = () => {
   }, [isServerError]);
 
   return (
+    <div><NavbarAgency/>
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
@@ -42,9 +44,10 @@ const LoginPageAgency = () => {
         {isServerError ? (
           <p className="error">Login failed, incorrect credentials!</p>
         ) : null}
-        <Link to="/registerAgency">Click to register!</Link>
+        <Link to="/registerAgency">Click to register Agency!</Link>
         <button>Login!</button>
       </form>
+    </div>
     </div>
   );
 };
