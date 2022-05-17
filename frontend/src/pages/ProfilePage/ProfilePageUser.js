@@ -168,7 +168,8 @@ const ProfileUser = () => {
             </div>
             <div className="border border-3">
               <h2>Verification</h2>
-              <table>
+              <table className="table table-striped">
+                <tbody>
                 <tr>
                   <th>Employment</th>
                   <td>{ver.employment}</td>
@@ -253,6 +254,7 @@ const ProfileUser = () => {
                   <th>Untolerable Habits</th>
                   <td>{ver.petBadhab}</td>
                 </tr>
+                </tbody>
               </table>
               <button
                 className="btn btn-primary"
