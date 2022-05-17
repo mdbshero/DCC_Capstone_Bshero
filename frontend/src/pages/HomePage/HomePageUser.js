@@ -79,13 +79,22 @@ const HomePageUser = () => {
   return (
     <div>
       <NavbarUser />
-      <div>
-        <h1 className="container">Home Page for User: {user.name}!</h1>
+      <div className="container-fluid">
+        <h1 className="container">These dogs can't wait to meet you {user.name}!</h1>
         <div>
-          <table>
+          <table className="table table-hover">
             <thead>
               <tr>
-                <th>Local Agencies</th>
+                <th>
+                  <strong>
+                    <h2>Local Agencies</h2>
+                  </strong>
+                </th>
+                <th>
+                  <strong>
+                    <h2>Available Pets</h2>
+                  </strong>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -93,38 +102,64 @@ const HomePageUser = () => {
                 agencies.map((a, index) => {
                   return (
                     <tr key={index}>
+                      <div className="card w-50 text-center border border-dark mb-2">
+                        <td>
+                          <div>
+                            <h3>
+                              <strong>{a.name}</strong>
+                            </h3>
+                            <img src={`http://localhost:3011/${a.image}`}></img>
+                          </div>
+                          <div>
+                            <button
+                              className="btn btn-primary btn-sm px-3"
+                              type="submit"
+                              id="SendFavoriteButton"
+                              onClick={(event) =>
+                                handleFavoriteSubmit(event, a._id)
+                              }
+                            >
+                              Favorite
+                            </button>
+                            <button
+                              className="btn btn-primary btn-sm px-3"
+                              type="submit"
+                              id="SendVerificationButton"
+                              onClick={(event) => handleVerSubmit(event, a._id)}
+                            >
+                              Request
+                            </button>
+                          </div>
+                          <h5>
+                            <strong>Contact Information</strong>
+                          </h5>
+                          <h6>{a.contact.street}</h6>
+                          <h6>{a.contact.city}</h6>
+                          <h6>{a.contact.zip}</h6>
+                          <h6>{a.contact.state}</h6>
+                          <h6>{a.contact.phone}</h6>
+                          <h6>{a.email}</h6>
+                        </td>
+                      </div>
                       <td>
-                        <img src={`http://localhost:3011/${a.image}`}></img>
-                        <h5>{a.name}</h5>
-                        <button
-                          type="submit"
-                          id="SendFavoriteButton"
-                          onClick={(event) =>
-                            handleFavoriteSubmit(event, a._id)
-                          }
-                        >
-                          Favorite
-                        </button>
-                        <button
-                          type="submit"
-                          id="SendVerificationButton"
-                          onClick={(event) => handleVerSubmit(event, a._id)}
-                        >
-                          Send Request
-                        </button>
                         {a.pets &&
                           a.pets.map((pet, index) => {
                             return (
-                              <div key={index}>
+                              <div
+                                key={index}
+                                className="card w-50 text-center border border-dark mb-2"
+                              >
                                 <img
                                   src={`http://localhost:3011/${pet.image}`}
                                 ></img>
-                                <h6>{pet.name}</h6>
-                                <h6>{pet.name}</h6>
-                                <h6>{pet.type}</h6>
-                                <h6>{pet.age}</h6>
-                                <h6>{pet.breed}</h6>
-                                <h6>{pet.personality}</h6>
+                                <div className="card-body">
+                                  <h5 className="card-title">{pet.name}</h5>
+                                  <h6>{pet.name}</h6>
+                                  <h6>{pet.type}</h6>
+                                  <h6>{pet.age}</h6>
+                                  <h6>{pet.breed}</h6>
+                                  <h6>{pet.personality}</h6>
+                                </div>
                               </div>
                             );
                           })}

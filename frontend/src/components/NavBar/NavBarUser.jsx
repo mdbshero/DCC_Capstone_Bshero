@@ -10,22 +10,22 @@ const NavbarUser = () => {
   return (
     <div className="navBar">
       <ul>
-        <li className="brand">
+        <li className="navbar-brand">
           <b>fĕch</b>
         </li>
         <li>
           {user ? (
             <div>
-              <button onClick={() => navigate("/homeUser")}>Home</button>
-              <button onClick={() => navigate("/profileUser")}>Profile</button>
-              <button onClick={() => navigate("/verUser")}>Verification</button>
-              <button onClick={() => navigate("/agenciesUser")}>Agencies</button>
-              <button onClick={logoutUser}>Logout</button>
+              <button className="btn btn-primary" onClick={() => navigate("/homeUser")}>Home</button>
+              <button className="btn btn-primary" onClick={() => navigate("/profileUser")}>Profile</button>
+              <button className="btn btn-primary" onClick={() => navigate("/verUser")}>Verification</button>
+              <button className="btn btn-primary" onClick={() => navigate("/agenciesUser")}>Agencies</button>
+              <button className="btn btn-primary" onClick={logoutUser}>Logout</button>
             </div>
           ) : (
             <div>
-              <button onClick={() => navigate("/loginUser")}>User Login</button>
-              <button onClick={() => navigate("/loginAgency")}>
+              <button className="btn btn-primary" onClick={() => navigate("/loginUser")}>User Login</button>
+              <button className="btn btn-primary" onClick={() => navigate("/loginAgency")}>
                 Agency Login
               </button>
             </div>

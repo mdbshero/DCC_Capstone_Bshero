@@ -16,15 +16,15 @@ const NavbarAgency = () => {
         <li>
           {user ? (
             <div>
-            <button onClick={() => navigate("/homeAgency")}>Home</button>
-            <button onClick={() => navigate("/profileAgency")}>Profile</button>
-            <button onClick={() => navigate("/usersAgency")}>Users</button>
-            <button onClick={logoutUser}>Logout</button>
+            <button className="btn btn-primary" onClick={() => navigate("/homeAgency")}>Home</button>
+            <button className="btn btn-primary" onClick={() => navigate("/profileAgency")}>Profile</button>
+            <button className="btn btn-primary" onClick={() => navigate("/usersAgency")}>Users</button>
+            <button className="btn btn-primary" onClick={logoutUser}>Logout</button>
           </div>
           ) : (
             <div>
-              <button onClick={() => navigate("/loginUser")}>User Login</button>
-              <button onClick={() => navigate("/loginAgency")}>
+              <button className="btn btn-primary" onClick={() => navigate("/loginUser")}>User Login</button>
+              <button className="btn btn-primary" onClick={() => navigate("/loginAgency")}>
                 Agency Login
               </button>
             </div>
