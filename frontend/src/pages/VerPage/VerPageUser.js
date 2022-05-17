@@ -73,12 +73,12 @@ const VerPageUser = () => {
     <div>
       <NavbarUser />
       <div className="container-fluid">
-        <div className="text-center">
+        <div className="text-center ">
           <h3>Favorited and Verified Agencies</h3>
         </div>
         <div className="row">
           <div className="col-md-6">
-            <div className="border border-3">
+            <div className="border border-3 table-responsive">
               <table className="table">
                 <thead>
                   <tr>
@@ -92,18 +92,21 @@ const VerPageUser = () => {
                       return (
                         <tr key={index}>
                           <td>
-                          <td>
-                            <h5>{favorite.name}</h5>
-                            <img src={`http://localhost:3011/${favorite.image}`}></img>
-                            <h6>{favorite.contact.street}</h6>
-                            <h6>{favorite.contact.city}</h6>
-                            <h6>{favorite.contact.state}</h6>
-                            <h6>{favorite.contact.zip}</h6>
-                            <h6>{favorite.contact.phone}</h6>
-                          </td>
+                            <td className="w-responsive">
+                              <h5>{favorite.name}</h5>
+                              <img
+                                src={`http://localhost:3011/${favorite.image}`}
+                              ></img>
+                              <h6>{favorite.contact.street}</h6>
+                              <h6>{favorite.contact.city}</h6>
+                              <h6>{favorite.contact.state}</h6>
+                              <h6>{favorite.contact.zip}</h6>
+                              <h6>{favorite.contact.phone}</h6>
+                            </td>
                             <div>
                               <button
                                 type="submit"
+                                className="btn btn-outline-dark btn-sm px-3"
                                 id="deleteFavoriteButton"
                                 onClick={(event) =>
                                   handleClickUnFavorite(event, favorite)
@@ -122,15 +125,18 @@ const VerPageUser = () => {
                                     className="card text-center border border-dark mb-2"
                                   >
                                     <img
+                                      className="card-img-top"
                                       src={`http://localhost:3011/${pet.image}`}
                                     ></img>
                                     <div className="card-body">
                                       <h5 className="card-title">{pet.name}</h5>
-                                      <h6>{pet.name}</h6>
-                                      <h6>{pet.type}</h6>
-                                      <h6>{pet.age}</h6>
-                                      <h6>{pet.breed}</h6>
-                                      <h6>{pet.personality}</h6>
+                                      <div className="card-text">
+                                        <h6>{pet.name}</h6>
+                                        <h6>{pet.type}</h6>
+                                        <h6>{pet.age}</h6>
+                                        <h6>{pet.breed}</h6>
+                                        <h6>{pet.personality}</h6>
+                                      </div>
                                     </div>
                                   </div>
                                 );
@@ -158,13 +164,17 @@ const VerPageUser = () => {
                       return (
                         <tr key={index}>
                           <td>
-                            <h5>{v.name}</h5>
-                            <img src={`http://localhost:3011/${v.image}`}></img>
-                            <h6>{v.contact.street}</h6>
-                            <h6>{v.contact.city}</h6>
-                            <h6>{v.contact.state}</h6>
-                            <h6>{v.contact.zip}</h6>
-                            <h6>{v.contact.phone}</h6>
+                            <td className="w-responsive">
+                              <h5>{v.name}</h5>
+                              <img
+                                src={`http://localhost:3011/${v.image}`}
+                              ></img>
+                              <h6>{v.contact.street}</h6>
+                              <h6>{v.contact.city}</h6>
+                              <h6>{v.contact.state}</h6>
+                              <h6>{v.contact.zip}</h6>
+                              <h6>{v.contact.phone}</h6>
+                            </td>
                           </td>
                           <td>
                             {v.pets &&
@@ -175,15 +185,18 @@ const VerPageUser = () => {
                                     className="card text-center border border-dark mb-2"
                                   >
                                     <img
+                                      className="card-img-top"
                                       src={`http://localhost:3011/${pet.image}`}
                                     ></img>
                                     <div className="card-body">
                                       <h5 className="card-title">{pet.name}</h5>
-                                      <h6>{pet.name}</h6>
-                                      <h6>{pet.type}</h6>
-                                      <h6>{pet.age}</h6>
-                                      <h6>{pet.breed}</h6>
-                                      <h6>{pet.personality}</h6>
+                                      <div className="card-text">
+                                        <h6>{pet.name}</h6>
+                                        <h6>{pet.type}</h6>
+                                        <h6>{pet.age}</h6>
+                                        <h6>{pet.breed}</h6>
+                                        <h6>{pet.personality}</h6>
+                                      </div>
                                     </div>
                                   </div>
                                 );

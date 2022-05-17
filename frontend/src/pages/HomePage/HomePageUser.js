@@ -112,7 +112,7 @@ const HomePageUser = () => {
                           </div>
                           <div>
                             <button
-                              className="btn btn-primary btn-sm px-3"
+                              className="btn btn-outline-dark btn-sm px-3"
                               type="submit"
                               id="SendFavoriteButton"
                               onClick={(event) =>
@@ -122,7 +122,7 @@ const HomePageUser = () => {
                               Favorite
                             </button>
                             <button
-                              className="btn btn-primary btn-sm px-3"
+                              className="btn btn-outline-dark btn-sm px-3"
                               type="submit"
                               id="SendVerificationButton"
                               onClick={(event) => handleVerSubmit(event, a._id)}

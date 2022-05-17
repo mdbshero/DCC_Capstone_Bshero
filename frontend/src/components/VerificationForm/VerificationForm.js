@@ -85,7 +85,7 @@ const VerFormUser = () => {
       <NavbarUser />
       <div>
         <div className="row">
-        <div className="col-md-6 border">
+          <div className="col-md-6 border">
             <h2>Verification</h2>
             <table className="table table-striped">
               <tbody>
@@ -179,134 +179,136 @@ const VerFormUser = () => {
           <div className="col-md-6 border">
             <h2>Update Verification Information:</h2>
             <form
+              className="form"
               id="Verification"
               onSubmit={(event) => handleSubmitVerification(event)}
             >
               <label>Place of Employment: </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setEm(event.target.value)}
               />
-              <br />
               <label>Do you currently own, rent, or lease:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setHS(event.target.value)}
               />
-              <br />
               <label>How long have you lived at your current residence?</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setHT(event.target.value)}
               />
-              <br />
               <label>The noise/activity in my home is usually:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setHN(event.target.value)}
               />
-              <br />
+              className="form-control"
               <label>Name of Landlord if applicable:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setLN(event.target.value)}
               />
-              <br />
               <label>Number of Landlord if applicable:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setLNu(event.target.value)}
               />
-              <br />
               <label>Number of Adults in Home:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setANum(event.target.value)}
               />
-              <br />
               <label>Number of Children in Home:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setCNum(event.target.value)}
               />
-              <br />
               <label>Reason for Adoption:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setAR(event.target.value)}
               />
-              <br />
               <label>How long will the dog be left alone each day?:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPH(event.target.value)}
               />
-              <br />
               <label>Where will the dog be kept when no one is home?:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPL(event.target.value)}
               />
-              <br />
               <label>Where will the dog be kept at night?:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPS(event.target.value)}
               />
-              <br />
               <label>Do you have a fenced yard?:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setFence(event.target.value)}
               />
-              <br />
               <label>Please list the Veterinarian you will be using:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setVN(event.target.value)}
               />
-              <br />
               <label>Please list the Veterinarian's number:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setVNum(event.target.value)}
               />
-              <br />
               <label>Please describe your preferred pet:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPrefT(event.target.value)}
               />
-              <br />
               <label>Please describe what you would dislike in a pet:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPD(event.target.value)}
               />
-              <br />
               <label>
                 Please describe what activity level you would like in a pet:
               </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPE(event.target.value)}
               />
-              <br />
               <label>Please describe what you would like in a pet:</label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPI(event.target.value)}
               />
-              <br />
               <label>
                 Please describe what bad habits you would not be able to
                 tolerate in a pet:
               </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setPB(event.target.value)}
               />
-              <br />
               <label>
                 I understand and agree that fĕch makes no express or implied
                 warranty, representation or promise to the age, health, breed,
@@ -322,10 +324,10 @@ const VerFormUser = () => {
                 Please Initial
               </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setAgOne(event.target.value)}
               ></input>
-              <br />
               <label>
                 I agree in the case I cannot keep the animal, they will be
                 returned to their respective adoptive agency. All monies
@@ -333,10 +335,10 @@ const VerFormUser = () => {
                 non-refundable. Please Initial
               </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setAgTwo(event.target.value)}
               ></input>
-              <br />
               <label>
                 I acknowledge falsification of the above can result in my being
                 denied adoption of an animal or if animal has been adopted to
@@ -345,11 +347,13 @@ const VerFormUser = () => {
                 best of my knowledge. Please Initial
               </label>
               <input
+                className="form-control"
                 type="text"
                 onChange={(event) => setAgThree(event.target.value)}
               ></input>
-              <br />
-              <button type="submit">Update</button>
+              <button className="btn btn-dark" type="submit">
+                Update
+              </button>
             </form>
           </div>
         </div>
