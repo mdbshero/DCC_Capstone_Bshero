@@ -9,27 +9,33 @@ li {
 }
 
 .navBar {
-  background: steelblue;
   box-shadow: 4px 2px 5px gray;
-  color: white;
+  color: rgb(0, 0, 0);
   margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 1rem 3rem;
+  background-image: url('https://media.istockphoto.com/vectors/beagle-in-actionseamless-pattern-vector-id1147249349?k=6&m=1147249349&s=612x612&w=0&h=fJgt31rjLAIJbGlmJxrJ0Oov9AWXV7sg12On0xSInkM=');
 }
 
 .navBar button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
+  background: white;
+  border: 2px solid black;
+  color: black;
   padding: 0.4rem 0.5rem;
 }
 
 .navBar button:hover {
   background: white;
-  color: steelblue;
+  color: black7;
   cursor: pointer;
 }
 
-.brand {
-  cursor: pointer;
+b {
+  color: white;
   font-size: 2rem;
+  border: 2px transparent;
+  text-shadow: -1px 1px 2px #000,
+  3px 3px 4px rgb(0, 0, 0),
+  3px -3px 0 #000,
+  -2px -2px 0 #000;
 }
+

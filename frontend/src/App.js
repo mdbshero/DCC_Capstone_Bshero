@@ -14,7 +14,6 @@ import VerPageUser from "./pages/VerPage/VerPageUser"
 import VerPageAgency from "./pages/VerPage/VerPageAgency"
 
 // Component Imports
-import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
 // Util Imports
@@ -25,7 +24,6 @@ import ProfileAgency from "./pages/ProfilePage/ProfilePageAgency";
 function App() {
   return (
     <div>
-      <Navbar />
       <Routes>
         <Route
           path="/homeUser"

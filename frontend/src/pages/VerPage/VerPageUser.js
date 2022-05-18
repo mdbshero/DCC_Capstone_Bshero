@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import jwtDecode from "jwt-decode";
+import NavbarUser from "../../components/NavBar/NavBarUser";
 
 const VerPageUser = () => {
   const [userFavorites, setUserFavorites] = useState([]);
@@ -70,67 +71,144 @@ const VerPageUser = () => {
   }, [userVer]);
   return (
     <div>
-      <h3>Friends Page for {user.name}!</h3>
-      <div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Favorites</th>
-              </tr>
-            </thead>
-            <tbody>
-              {favorites &&
-                favorites.map((favorite, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <img
-                          src={`http://localhost:3011/${favorite.image}`}
-                        ></img>
-                        <h5>{favorite.name}</h5>
-                        <button
-                          type="submit"
-                          id="deleteFavoriteButton"
-                          onClick={(event) =>
-                            handleClickUnFavorite(event, favorite)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+      <NavbarUser />
+      <div className="container-fluid">
+        <div className="text-center ">
+          <h3>Favorited and Verified Agencies</h3>
         </div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th> Verified Agencies </th>
-              </tr>
-            </thead>
-            <tbody>
-              {ver &&
-                ver.map((v, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <img src={`http://localhost:3011/${v.image}`}></img>
-                        <h5>{v.name}</h5>
-                        <h5>{v.contact.street}</h5>
-                        <h5>{v.contact.city}</h5>
-                        <h5>{v.contact.state}</h5>
-                        <h5>{v.contact.zip}</h5>
-                        <h5>{v.contact.phone}</h5>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="border border-3 table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Favorites</th>
+                    <th>Available Pets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {favorites &&
+                    favorites.map((favorite, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <td className="w-responsive">
+                              <h5>{favorite.name}</h5>
+                              <img
+                                src={`http://localhost:3011/${favorite.image}`}
+                              ></img>
+                              <h6>{favorite.contact.street}</h6>
+                              <h6>{favorite.contact.city}</h6>
+                              <h6>{favorite.contact.state}</h6>
+                              <h6>{favorite.contact.zip}</h6>
+                              <h6>{favorite.contact.phone}</h6>
+                            </td>
+                            <div>
+                              <button
+                                type="submit"
+                                className="btn btn-outline-dark btn-sm px-3"
+                                id="deleteFavoriteButton"
+                                onClick={(event) =>
+                                  handleClickUnFavorite(event, favorite)
+                                }
+                              >
+                                Unfavorite
+                              </button>
+                            </div>
+                          </td>
+                          <td>
+                            {favorite.pets &&
+                              favorite.pets.map((pet, index) => {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="card text-center border border-dark mb-2"
+                                  >
+                                    <img
+                                      className="card-img-top"
+                                      src={`http://localhost:3011/${pet.image}`}
+                                    ></img>
+                                    <div className="card-body">
+                                      <h5 className="card-title">{pet.name}</h5>
+                                      <div className="card-text">
+                                        <h6>{pet.name}</h6>
+                                        <h6>{pet.type}</h6>
+                                        <h6>{pet.age}</h6>
+                                        <h6>{pet.breed}</h6>
+                                        <h6>{pet.personality}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="border border-3">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Verified Agencies</th>
+                    <th>Available Pets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ver &&
+                    ver.map((v, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <td className="w-responsive">
+                              <h5>{v.name}</h5>
+                              <img
+                                src={`http://localhost:3011/${v.image}`}
+                              ></img>
+                              <h6>{v.contact.street}</h6>
+                              <h6>{v.contact.city}</h6>
+                              <h6>{v.contact.state}</h6>
+                              <h6>{v.contact.zip}</h6>
+                              <h6>{v.contact.phone}</h6>
+                            </td>
+                          </td>
+                          <td>
+                            {v.pets &&
+                              v.pets.map((pet, index) => {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="card text-center border border-dark mb-2"
+                                  >
+                                    <img
+                                      className="card-img-top"
+                                      src={`http://localhost:3011/${pet.image}`}
+                                    ></img>
+                                    <div className="card-body">
+                                      <h5 className="card-title">{pet.name}</h5>
+                                      <div className="card-text">
+                                        <h6>{pet.name}</h6>
+                                        <h6>{pet.type}</h6>
+                                        <h6>{pet.age}</h6>
+                                        <h6>{pet.breed}</h6>
+                                        <h6>{pet.personality}</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

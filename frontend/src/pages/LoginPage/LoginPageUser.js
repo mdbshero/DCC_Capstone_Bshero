@@ -3,6 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
+import NavbarUser from "../../components/NavBar/NavBarUser";
 
 const LoginPageUser = () => {
   const { loginUser, isServerError } = useContext(AuthContext);
@@ -19,6 +20,8 @@ const LoginPageUser = () => {
   }, [isServerError]);
 
   return (
+    <div>
+      <NavbarUser/>
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
@@ -45,6 +48,7 @@ const LoginPageUser = () => {
         <Link to="/registerUser">Click to register!</Link>
         <button>Login!</button>
       </form>
+    </div>
     </div>
   );
 };

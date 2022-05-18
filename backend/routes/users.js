@@ -1,5 +1,9 @@
 const { User, validateLogin, validateUser } = require("../models/user");
-const {Agency,validateAgency,validateLoginAgency,} = require("../models/agency");
+const {
+  Agency,
+  validateAgency,
+  validateLoginAgency,
+} = require("../models/agency");
 
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -73,7 +77,6 @@ router.post("/users/loginUser", async (req, res) => {
 // Get all users
 router.get("/users", [auth], async (req, res) => {
   try {
-    console.log(req.user);
     const users = await User.find();
     return res.send(users);
   } catch (ex) {
@@ -243,7 +246,10 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
     try {
       const agency = await Agency.findByIdAndUpdate(req.params.agencyId);
       const user = await User.findById(req.params.userId);
-      if (!agency.pendingUser.includes(req.params.userId) && !agency.verUser.includes(req.params.userId)) {
+      if (
+        !agency.pendingUser.includes(req.params.userId) &&
+        !agency.verUser.includes(req.params.userId)
+      ) {
         await agency.updateOne({
           $push: { pendingUser: req.params.userId },
         });
@@ -274,39 +280,43 @@ router.get("/agency", [auth], async (req, res) => {
 });
 
 //* POST register a new agency
-router.post("/agency/register", fileUpload.single("image"), async (req, res) => {
-  try {
-    const { error } = validateAgency(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    let agency = await Agency.findOne({ email: req.body.email });
-    if (agency)
-      return res.status(400).send(`Email ${req.body.email} already claimed!`);
+router.post(
+  "/agency/register",
+  fileUpload.single("image"),
+  async (req, res) => {
+    try {
+      const { error } = validateAgency(req.body);
+      if (error) return res.status(400).send(error.details[0].message);
+      let agency = await Agency.findOne({ email: req.body.email });
+      if (agency)
+        return res.status(400).send(`Email ${req.body.email} already claimed!`);
 
-    const salt = await bcrypt.genSalt(10);
-    agency = new Agency({
-      name: req.body.name,
-      email: req.body.email,
-      password: await bcrypt.hash(req.body.password, salt),
-      isAdmin: req.body.isAdmin,
-      image: req.file.path,
-    });
-
-    await agency.save();
-    const token = agency.generateAuthToken();
-    return res
-      .header("x-auth-token", token)
-      .header("access-control-expose-headers", "x-auth-token")
-      .send({
-        _id: agency._id,
-        name: agency.name,
-        email: agency.email,
-        isAdmin: agency.isAdmin,
-        image: agency.image,
+      const salt = await bcrypt.genSalt(10);
+      agency = new Agency({
+        name: req.body.name,
+        email: req.body.email,
+        password: await bcrypt.hash(req.body.password, salt),
+        isAdmin: req.body.isAdmin,
+        image: req.file.path,
       });
-  } catch (ex) {
-    return res.status(500).send(`Internal Server Error: ${ex}`);
+
+      await agency.save();
+      const token = agency.generateAuthToken();
+      return res
+        .header("x-auth-token", token)
+        .header("access-control-expose-headers", "x-auth-token")
+        .send({
+          _id: agency._id,
+          name: agency.name,
+          email: agency.email,
+          isAdmin: agency.isAdmin,
+          image: agency.image,
+        });
+    } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
   }
-});
+);
 
 // POST a valid login attempt
 // when a user logs in, a new JWT token is generated and sent if their email/password credentials are correct
@@ -372,29 +382,33 @@ router.put("/agency/:agencyId/about", async (req, res) => {
 });
 
 //PUT upload a pet into an agency profile
-router.put("/agency/:agencyId/pets", fileUpload.single("image"), async (req, res) => {
-  try {
-    let agency = await Agency.findById(req.params.agencyId);
-    if (!agency)
-      return res
-        .status(400)
-        .send(`Agency with Id of ${req.params.agencyId} does not exist!`);
+router.put(
+  "/agency/:agencyId/pets",
+  fileUpload.single("image"),
+  async (req, res) => {
+    try {
+      let agency = await Agency.findById(req.params.agencyId);
+      if (!agency)
+        return res
+          .status(400)
+          .send(`Agency with Id of ${req.params.agencyId} does not exist!`);
 
-    let newPet = new Pet({
-      image: req.file.path,
-      name: req.body.name,
-      type: req.body.type,
-      age: req.body.age,
-      breed: req.body.breed,
-      personality: req.body.personality,
-    });
-    agency.pets.push(newPet);
-    await agency.save();
-    return res.status(201).send(agency);
-  } catch (error) {
-    return res.status(500).send(`Internal Server Error: ${error}`);
+      let newPet = new Pet({
+        image: req.file.path,
+        name: req.body.name,
+        type: req.body.type,
+        age: req.body.age,
+        breed: req.body.breed,
+        personality: req.body.personality,
+      });
+      agency.pets.push(newPet);
+      await agency.save();
+      return res.status(201).send(agency);
+    } catch (error) {
+      return res.status(500).send(`Internal Server Error: ${error}`);
+    }
   }
-});
+);
 
 // DELETE a pet
 router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
@@ -416,13 +430,8 @@ router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
 router.delete("/agency/:agencyId/decline/:requestId", async (req, res) => {
   try {
     const agency = await Agency.findById(req.params.agencyId);
-    console.log(agency.pendingUser[0]);
     for (let i = 0; i < agency.pendingUser.length; i++) {
-      console.log(agency.pendingUser[i].toString());
-      console.log(req.params.requestId);
-
       if (agency.pendingUser[i].toString() === req.params.requestId) {
-        console.log("trigger");
         await agency.updateOne({
           $pull: { pendingUser: req.params.requestId },
         });
@@ -475,7 +484,10 @@ router.put("/agency/:agencyId", async (req, res) => {
       return res
         .status(400)
         .send(`Agency with id ${req.params.agencyId} does not exist!`);
-    let prefUser = await Agency.findByIdAndUpdate(req.params.agencyId, req.body);
+    let prefUser = await Agency.findByIdAndUpdate(
+      req.params.agencyId,
+      req.body
+    );
     return res.send(prefUser);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
