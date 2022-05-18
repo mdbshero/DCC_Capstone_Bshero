@@ -10,7 +10,7 @@ const NavbarAgency = () => {
   return (
     <div className="navBar">
       <ul>
-        <li className="brand">
+        <li className="navbar-brand">
           <b>fĕch</b>
         </li>
         <li>

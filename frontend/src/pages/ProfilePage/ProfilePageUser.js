@@ -165,20 +165,20 @@ const ProfileUser = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="phone">Update Phone Number:</label>
-                    <input
-                      type="text"
-                      id="phone"
-                      onChange={(event) => setPhone(event.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
                     <label for="state">Update State:</label>
                     <input
                       type="text"
                       id="state"
                       defaultValue={""}
                       onChange={(event) => setUsState(event.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="phone">Update Phone Number:</label>
+                    <input
+                      type="text"
+                      id="phone"
+                      onChange={(event) => setPhone(event.target.value)}
                     />
                   </div>
                   <button className="btn btn-dark" type="submit">Update</button>

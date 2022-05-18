@@ -55,40 +55,53 @@ const HomePageAgency = () => {
   }, [region]);
 
   return (
-    <div>
+    <div className="container-fluid">
       <NavbarAgency />
-      <div>
-        <h1 className="container">Home Page for User: {user.name}!</h1>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Local Agencies</th>
-              </tr>
-            </thead>
-            <tbody>
-              {petParents &&
-                petParents.map((a, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <img src={`http://localhost:3011/${a.image}`}></img>
-                        <h5>{a.name}</h5>
-                        <div>
-                          <h6>{a.contact.street}</h6>
-                          <h6>{a.contact.city}</h6>
-                          <h6>{a.contact.state}</h6>
-                          <h6>{a.contact.zip}</h6>
-                          <h6>{a.contact.phone}</h6>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+      <section className="pt-5 pb-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="mb-3">Local Users </h3>
+            </div>
+            <div className="col-12">
+              <div
+                id="carouselExampleIndicators2"
+                className="carousel slide"
+                data-ride="carousel"
+              >
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <div className="row">
+                      {petParents &&
+                        petParents.map((a, index) => {
+                          return (
+                            <div className="col-md-4 mb-3">
+                              <div key={index}>
+                                <div className="card">
+                                  <img
+                                    className="img-fluid"
+                                    src={`http://localhost:3011/${a.image}`}
+                                  ></img>
+                                  <div className="card-body">
+                                    <h3 className="card-title">{a.name}</h3>
+                                    <h6>{a.contact.city}</h6>
+                                    <h6>{a.contact.state}</h6>
+                                    <h6>{a.contact.phone}</h6>
+                                    <h6>{a.email}</h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

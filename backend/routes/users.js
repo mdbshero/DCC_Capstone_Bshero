@@ -77,7 +77,6 @@ router.post("/users/loginUser", async (req, res) => {
 // Get all users
 router.get("/users", [auth], async (req, res) => {
   try {
-    console.log(req.user);
     const users = await User.find();
     return res.send(users);
   } catch (ex) {
@@ -431,13 +430,8 @@ router.delete("/agency/:agencyId/deletePet/:petId", async (req, res) => {
 router.delete("/agency/:agencyId/decline/:requestId", async (req, res) => {
   try {
     const agency = await Agency.findById(req.params.agencyId);
-    console.log(agency.pendingUser[0]);
     for (let i = 0; i < agency.pendingUser.length; i++) {
-      console.log(agency.pendingUser[i].toString());
-      console.log(req.params.requestId);
-
       if (agency.pendingUser[i].toString() === req.params.requestId) {
-        console.log("trigger");
         await agency.updateOne({
           $pull: { pendingUser: req.params.requestId },
         });
