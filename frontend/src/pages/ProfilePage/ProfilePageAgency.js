@@ -323,26 +323,25 @@ const ProfileAgency = () => {
                                           </div>
                                         </div>
                                         <div>
-                                          <div>Name:</div>
+                                          <div><strong>Name:</strong></div>
                                           <div>{pets.name}</div>
                                         </div>
                                         <div>
-                                          <div>Type:</div>
+                                          <div><strong>Type:</strong></div>
                                           <div>{pets.type}</div>
                                         </div>
                                         <div>
-                                          <div>Age</div>
+                                          <div><strong>Age:</strong></div>
                                           <div>{pets.age}</div>
                                         </div>
                                         <div>
-                                          <div>Breed</div>
+                                          <div><strong>Breed:</strong></div>
                                           <div>{pets.breed}</div>
                                         </div>
                                         <div>
-                                          <div>Personality</div>
+                                          <div><strong>Personality:</strong></div>
                                           <div>{pets.personality}</div>
                                         </div>
-                                        <div>Delete</div>
                                         <div>
                                           <div>
                                             <button
