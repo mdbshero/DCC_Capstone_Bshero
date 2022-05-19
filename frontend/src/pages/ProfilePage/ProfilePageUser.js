@@ -276,7 +276,7 @@ const ProfileUser = () => {
                 </tbody>
               </table>
               <button
-                className="btn btn-primary"
+                className="btn btn-dark"
                 onClick={() => navigate("/verUser")}
               >
                 Update
