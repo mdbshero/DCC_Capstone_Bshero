@@ -3,6 +3,7 @@ import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import NavbarAgency from "../../components/NavBar/NavBarAgency";
+import "./HomePage.css"
 
 const HomePageAgency = () => {
   const { user } = useContext(AuthContext);
@@ -77,7 +78,7 @@ const HomePageAgency = () => {
                           return (
                             <div className="col-md-4 mb-3">
                               <div key={index}>
-                                <div className="card">
+                                <div className="card w-50">
                                   <img
                                     className="img-fluid"
                                     src={`http://localhost:3011/${a.image}`}

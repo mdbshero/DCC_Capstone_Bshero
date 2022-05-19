@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import NavbarAgency from "../../components/NavBar/NavBarAgency";
+import "./VerPage.css"
 
 const VerPageAgency = () => {
   const [agencyPending, setAgencyPending] = useState([]);
@@ -200,11 +201,6 @@ const VerPageAgency = () => {
                             Dislikes: {pend.verification.petDis}
                             <br />
                             Pet Energy Level: {pend.verification.petEn}
-                            <br />
-                            Ideals: {pend.verification.petIdeal}
-                            <br />
-                            Untolerable Habits Habitsoyment:{" "}
-                            {pend.verification.petBadHab}
                             <br />
                             Agreement One: {pend.verification.agreeOne}
                             <br />

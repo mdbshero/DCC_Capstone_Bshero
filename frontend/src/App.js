@@ -41,6 +41,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/" element={<LoginPageUser />} />
         <Route path="/registerUser" element={<RegisterPageUser />} />
         <Route path="/registerAgency" element={<RegisterPageAgency />} />
         <Route path="/loginUser" element={<LoginPageUser />} />

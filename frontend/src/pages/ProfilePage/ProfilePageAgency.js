@@ -127,7 +127,7 @@ const ProfileAgency = () => {
             <img src={`http://localhost:3011/${image}`}></img>
             <div className=" border border-3">
               <div>
-                <h2>Agency Information</h2>
+                <h2 className="text-center">Agency Information</h2>
                 <table className="table table-borderless">
                   <thead>
                     <tr>
@@ -149,7 +149,7 @@ const ProfileAgency = () => {
                   </thead>
                 </table>
               </div>
-              <h2>Update Agency Information:</h2>
+              <h2 className="text-center">Update Agency Information:</h2>
               <form
                 className="form"
                 id="Agency Information"
@@ -194,33 +194,35 @@ const ProfileAgency = () => {
             <div>
               <div className="border border-3">
                 <div>
-                  <h2>Contact Information</h2>
-                  <table className="table table-borderless table-sm">
-                    <thead>
-                      <tr>
-                        <th>Street</th>
-                        <td>{contact.street}</td>
-                      </tr>
-                      <tr>
-                        <th>City</th>
-                        <td>{contact.city}</td>
-                      </tr>
-                      <tr>
-                        <th>State</th>
-                        <td>{contact.state}</td>
-                      </tr>
-                      <tr>
-                        <th>Zip Code</th>
-                        <td>{contact.zip}</td>
-                      </tr>
-                      <tr>
-                        <th>Phone Number</th>
-                        <td>{contact.phone}</td>
-                      </tr>
-                    </thead>
-                  </table>
+                  <h2 className="text-center">Contact Information</h2>
+                  <div className="text-center">
+                    <table className="table table-borderless table-sm">
+                      <thead>
+                        <tr>
+                          <th>Street</th>
+                          <td>{contact.street}</td>
+                        </tr>
+                        <tr>
+                          <th>City</th>
+                          <td>{contact.city}</td>
+                        </tr>
+                        <tr>
+                          <th>State</th>
+                          <td>{contact.state}</td>
+                        </tr>
+                        <tr>
+                          <th>Zip Code</th>
+                          <td>{contact.zip}</td>
+                        </tr>
+                        <tr>
+                          <th>Phone Number</th>
+                          <td>{contact.phone}</td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
                 </div>
-                <h2>Update Contact Information:</h2>
+                <h2 className="text-center">Update Contact Information:</h2>
                 <form
                   className="form"
                   id="Contact"
@@ -243,6 +245,14 @@ const ProfileAgency = () => {
                     />
                   </div>
                   <div>
+                    <label>Update State:</label>
+                    <input
+                      type="text"
+                      defaultValue={""}
+                      onChange={(event) => setUsState(event.target.value)}
+                    />
+                  </div>
+                  <div>
                     <label>Update Zip:</label>
                     <input
                       type="text"
@@ -256,21 +266,13 @@ const ProfileAgency = () => {
                       onChange={(event) => setPhone(event.target.value)}
                     />
                   </div>
-                  <div>
-                    <label>Update State:</label>
-                    <input
-                      type="text"
-                      defaultValue={""}
-                      onChange={(event) => setUsState(event.target.value)}
-                    />
-                  </div>
                   <button className="btn btn-dark" type="submit">
                     Update
                   </button>
                 </form>
               </div>
               <div className="border border-3">
-                <h2>Preferred User Characteristics</h2>
+                <h2 className="text-center">Preferred User Characteristics</h2>
                 <div>
                   <p>{prefUser}</p>
                 </div>
@@ -323,23 +325,33 @@ const ProfileAgency = () => {
                                           </div>
                                         </div>
                                         <div>
-                                          <div><strong>Name:</strong></div>
+                                          <div>
+                                            <strong>Name:</strong>
+                                          </div>
                                           <div>{pets.name}</div>
                                         </div>
                                         <div>
-                                          <div><strong>Type:</strong></div>
+                                          <div>
+                                            <strong>Type:</strong>
+                                          </div>
                                           <div>{pets.type}</div>
                                         </div>
                                         <div>
-                                          <div><strong>Age:</strong></div>
+                                          <div>
+                                            <strong>Age:</strong>
+                                          </div>
                                           <div>{pets.age}</div>
                                         </div>
                                         <div>
-                                          <div><strong>Breed:</strong></div>
+                                          <div>
+                                            <strong>Breed:</strong>
+                                          </div>
                                           <div>{pets.breed}</div>
                                         </div>
                                         <div>
-                                          <div><strong>Personality:</strong></div>
+                                          <div>
+                                            <strong>Personality:</strong>
+                                          </div>
                                           <div>{pets.personality}</div>
                                         </div>
                                         <div>
@@ -367,7 +379,7 @@ const ProfileAgency = () => {
                   </div>
                 </div>
               </section>
-              <h2>Add Pets</h2>
+              <h2 className="text-center">Add Pets</h2>
               <form
                 className="form"
                 id="Add Pets"

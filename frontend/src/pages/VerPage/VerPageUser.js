@@ -4,6 +4,7 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import jwtDecode from "jwt-decode";
 import NavbarUser from "../../components/NavBar/NavBarUser";
+import "./VerPage.css"
 
 const VerPageUser = () => {
   const [userFavorites, setUserFavorites] = useState([]);
@@ -122,7 +123,7 @@ const VerPageUser = () => {
                                 return (
                                   <div
                                     key={index}
-                                    className="card text-center border border-dark mb-2"
+                                    className="card w-50 text-center border border-dark mb-2"
                                   >
                                     <img
                                       className="card-img-top"

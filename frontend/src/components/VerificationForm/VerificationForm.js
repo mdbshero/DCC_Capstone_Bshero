@@ -25,8 +25,6 @@ const VerFormUser = () => {
   const [prefT, setPrefT] = useState("");
   const [pD, setPD] = useState("");
   const [pE, setPE] = useState("");
-  const [pI, setPI] = useState("");
-  const [pB, setPB] = useState("");
   const [agOne, setAgOne] = useState();
   const [agTwo, setAgTwo] = useState();
   const [agThree, setAgThree] = useState();
@@ -62,8 +60,6 @@ const VerFormUser = () => {
       prefTemp: prefT,
       petDis: pD,
       petEn: pE,
-      petIdeal: pI,
-      petBadHab: pB,
       agreeOne: agOne,
       agreeTwo: agTwo,
       agreeThree: agThree,
@@ -102,7 +98,7 @@ const VerFormUser = () => {
                   <td>{ver.homeStatus}</td>
                 </tr>
                 <tr>
-                  <th>Time in Home</th>
+                  <th>Years in Home</th>
                   <td>{ver.homeTime}</td>
                 </tr>
                 <tr>
@@ -114,64 +110,56 @@ const VerFormUser = () => {
                   <td>{ver.landName}</td>
                 </tr>
                 <tr>
-                  <th>Landlord Number</th>
+                  <th>Landlord Number:</th>
                   <td>{ver.landNumber}</td>
                 </tr>
                 <tr>
-                  <th>Number of Adults</th>
+                  <th>Number of Adults:</th>
                   <td>{ver.aNum}</td>
                 </tr>
                 <tr>
-                  <th>Number of Children</th>
+                  <th>Number of Children:</th>
                   <td>{ver.cNum}</td>
                 </tr>
                 <tr>
-                  <th>Reason for Adoption</th>
+                  <th>Reason for Adoption:</th>
                   <td>{ver.adoptReason}</td>
                 </tr>
                 <tr>
-                  <th>Average time pet will be alone per day</th>
+                  <th>Average time, in hours, pet will be alone per day:</th>
                   <td>{ver.petHours}</td>
                 </tr>
                 <tr>
-                  <th>Where pet will be kept during day</th>
+                  <th>Where pet will be kept during day:</th>
                   <td>{ver.petLoca}</td>
                 </tr>
                 <tr>
-                  <th>Where pet will sleep</th>
+                  <th>Where pet will sleep:</th>
                   <td>{ver.petSleep}</td>
                 </tr>
                 <tr>
-                  <th>Fencing</th>
+                  <th>Fencing:</th>
                   <td>{ver.fence}</td>
                 </tr>
                 <tr>
-                  <th>Veterinarian Name</th>
+                  <th>Veterinarian Name:</th>
                   <td>{ver.vetName}</td>
                 </tr>
                 <tr>
-                  <th>Veterinarian Number</th>
+                  <th>Veterinarian Number:</th>
                   <td>{ver.vetNumber}</td>
                 </tr>
                 <tr>
-                  <th>Preferred Temperment</th>
+                  <th>Preferred Temperment:</th>
                   <td>{ver.prefTemp}</td>
                 </tr>
                 <tr>
-                  <th>Dislikes</th>
+                  <th>Dislikes:</th>
                   <td>{ver.petDis}</td>
                 </tr>
                 <tr>
-                  <th>Pet Energy Level</th>
+                  <th>Pet Energy Level:</th>
                   <td>{ver.petEn}</td>
-                </tr>
-                <tr>
-                  <th>Ideals</th>
-                  <td>{ver.petIdeal}</td>
-                </tr>
-                <tr>
-                  <th>Untolerable Habits</th>
-                  <td>{ver.petBadHab}</td>
                 </tr>
               </tbody>
             </table>
@@ -195,7 +183,7 @@ const VerFormUser = () => {
                 type="text"
                 onChange={(event) => setHS(event.target.value)}
               />
-              <label>How long have you lived at your current residence?</label>
+              <label>How long have you lived at your current residence in years?</label>
               <input
                 className="form-control"
                 type="text"
@@ -207,7 +195,6 @@ const VerFormUser = () => {
                 type="text"
                 onChange={(event) => setHN(event.target.value)}
               />
-              className="form-control"
               <label>Name of Landlord if applicable:</label>
               <input
                 className="form-control"
@@ -238,7 +225,7 @@ const VerFormUser = () => {
                 type="text"
                 onChange={(event) => setAR(event.target.value)}
               />
-              <label>How long will the dog be left alone each day?:</label>
+              <label>How long, in hours, will the dog be left alone each day?:</label>
               <input
                 className="form-control"
                 type="text"
@@ -293,21 +280,6 @@ const VerFormUser = () => {
                 className="form-control"
                 type="text"
                 onChange={(event) => setPE(event.target.value)}
-              />
-              <label>Please describe what you would like in a pet:</label>
-              <input
-                className="form-control"
-                type="text"
-                onChange={(event) => setPI(event.target.value)}
-              />
-              <label>
-                Please describe what bad habits you would not be able to
-                tolerate in a pet:
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                onChange={(event) => setPB(event.target.value)}
               />
               <label>
                 I understand and agree that fĕch makes no express or implied

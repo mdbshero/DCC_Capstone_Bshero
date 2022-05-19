@@ -110,7 +110,7 @@ const ProfileUser = () => {
                   <tbody>
                     <tr>
                       <th>Street</th>
-                      <td>{contact.street}</td>4
+                      <td>{contact.street}</td>
                     </tr>
                     <tr>
                       <th>City</th>
@@ -139,7 +139,7 @@ const ProfileUser = () => {
                   onSubmit={(event) => handleSubmitContact(event)}
                 >
                   <div className="form-group">
-                    <label for="street">Update street:</label>
+                    <label >Update Street:</label>
                     <input
                       type="text"
                       id="street"
@@ -148,7 +148,7 @@ const ProfileUser = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="city">Update City:</label>
+                    <label>Update City:</label>
                     <input
                       type="text"
                       id="city"
@@ -157,15 +157,7 @@ const ProfileUser = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="zip">Update Zip:</label>
-                    <input
-                      type="text"
-                      id="zip"
-                      onChange={(event) => setZip(event.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label for="state">Update State:</label>
+                    <label>Update State:</label>
                     <input
                       type="text"
                       id="state"
@@ -174,7 +166,15 @@ const ProfileUser = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label for="phone">Update Phone Number:</label>
+                    <label>Update Zip:</label>
+                    <input
+                      type="text"
+                      id="zip"
+                      onChange={(event) => setZip(event.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Update Phone Number:</label>
                     <input
                       type="text"
                       id="phone"

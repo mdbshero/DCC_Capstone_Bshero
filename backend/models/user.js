@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     maxLength: 255,
   },
   password: { type: String, required: true, minLength: 8, maxLength: 1024 },
-  aboutMe: { type: String, minLength: 2, maxLength: 255},
+  aboutMe: { type: String, minLength: 2, maxLength: 1024},
   contact: {type: contactSchema, default: {}},
   verification: {type: verificationSchema, default: {}},
   favAgency: [{type: mongoose.Types.ObjectId}],
