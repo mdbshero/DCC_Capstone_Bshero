@@ -8,6 +8,7 @@ const VerFormUser = () => {
   const { user } = useContext(AuthContext);
   const [ver, setVer] = useState("");
   const [em, setEm] = useState("");
+  const [hType, setHType] = useState();
   const [hT, setHT] = useState();
   const [hS, setHS] = useState("");
   const [hN, setHN] = useState("");
@@ -42,7 +43,7 @@ const VerFormUser = () => {
     event.preventDefault();
     let newVer = {
       employment: em,
-      homeType: hT,
+      homeType: hType,
       homeStatus: hS,
       homeTime: hT,
       homeNoise: hN,
@@ -176,6 +177,12 @@ const VerFormUser = () => {
                 className="form-control"
                 type="text"
                 onChange={(event) => setEm(event.target.value)}
+              />
+              <label>Type of Home: </label>
+              <input
+                className="form-control"
+                type="text"
+                onChange={(event) => setHType(event.target.value)}
               />
               <label>Do you currently own, rent, or lease:</label>
               <input
