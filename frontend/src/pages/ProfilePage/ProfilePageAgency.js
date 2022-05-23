@@ -98,6 +98,7 @@ const ProfileAgency = () => {
       breed: pBreed,
       personality: pPersonality,
     };
+    console.log(user._id)
     console.log(newPet);
     await axios.put(
       `http://localhost:3011/api/agency/${user._id}/pets`,

@@ -6,7 +6,7 @@ const petSchema = new mongoose.Schema({
     image: { type: String, default: ""},
     name: {type: String, minLength: 1},
     type: {type: String, minLength: 1},
-    age: {type: Number, minLength: 1},
+    age: {type: String, minLength: 1},
     breed: {type: String, minLength: 1},
     personality: {type: String, minLength: 1},
 });
@@ -17,7 +17,7 @@ function validatePet(pet) {
         image: Joi.string(),
         name: Joi.string().min(1),
         type: Joi.string().min(1),
-        age: Joi.number().min(1),
+        age: Joi.string().min(1),
         breed: Joi.string().min(1),
         personality: Joi.string().min(1),
     });
