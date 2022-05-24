@@ -402,13 +402,14 @@ const ProfileAgency = () => {
               </section>
               <h2 className="text-center">Add Pets</h2>
               <form
-                className="form"
+                className="form-control"
                 id="Add Pets"
                 onSubmit={(event) => handleSubmitPet(event)}
               >
                 <div>
                   <label>Image:</label>
                   <input
+                  className="form-control"
                     type="file"
                     id="imageUpload"
                     accept="image/png, image/jpeg, image/jpg"
@@ -417,6 +418,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Name:</label>
                   <input
+                  className="form-control"
                     type="text"
                     defaultValue={""}
                     onChange={(event) => setPName(event.target.value)}
@@ -425,6 +427,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Type:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPType(event.target.value)}
                   />
@@ -432,6 +435,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Age:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPAge(event.target.value)}
                   />
@@ -439,6 +443,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Breed:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPBreed(event.target.value)}
                   />
@@ -446,6 +451,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Personality:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPPersonality(event.target.value)}
                   />
