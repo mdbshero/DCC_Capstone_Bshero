@@ -71,7 +71,7 @@ const RegisterPageUser = () => {
               onChange={handleInputChange}
             />
           </label>
-          <button>Register!</button>
+          <button className="btn btn-outline-dark btn-sm px-3">Register!</button>
         </form>
       </div>
     </div>

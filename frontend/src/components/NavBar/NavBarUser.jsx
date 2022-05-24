@@ -16,17 +16,50 @@ const NavbarUser = () => {
         <li>
           {user ? (
             <div>
-              <button className="btn btn-primary" onClick={() => navigate("/homeUser")}>Home</button>
-              <button className="btn btn-primary" onClick={() => navigate("/profileUser")}>Profile</button>
-              <button className="btn btn-primary" onClick={() => navigate("/verUser")}>Verification</button>
-              <button className="btn btn-primary" onClick={() => navigate("/agenciesUser")}>Agencies</button>
-              <button className="btn btn-primary" onClick={logoutUser}>Logout</button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/homeUser")}
+              >
+                Home
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/profileUser")}
+              >
+                Profile
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/verUser")}
+              >
+                Verification
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/agenciesUser")}
+              >
+                Agencies
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={logoutUser}
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div>
-              <button className="btn btn-primary" onClick={() => navigate("/loginUser")}>User Login</button>
-              <button className="btn btn-primary" onClick={() => navigate("/loginAgency")}>
-                Agency Login
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/loginUser")}
+              >
+                <strong>User Login</strong>
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/loginAgency")}
+              >
+                <strong>Agency Login</strong>
               </button>
             </div>
           )}

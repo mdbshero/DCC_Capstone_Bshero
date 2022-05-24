@@ -46,7 +46,7 @@ const LoginPageUser = () => {
           <p className="error">Login failed, incorrect credentials!</p>
         ) : null}
         <Link to="/registerUser">Click to register!</Link>
-        <button>Login!</button>
+        <button className="btn btn-outline-dark btn-sm px-3">Login!</button>
       </form>
     </div>
     </div>

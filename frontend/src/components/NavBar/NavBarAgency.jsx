@@ -16,16 +16,44 @@ const NavbarAgency = () => {
         <li>
           {user ? (
             <div>
-            <button className="btn btn-primary" onClick={() => navigate("/homeAgency")}>Home</button>
-            <button className="btn btn-primary" onClick={() => navigate("/profileAgency")}>Profile</button>
-            <button className="btn btn-primary" onClick={() => navigate("/usersAgency")}>Users</button>
-            <button className="btn btn-primary" onClick={logoutUser}>Logout</button>
-          </div>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/homeAgency")}
+              >
+                Home
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/profileAgency")}
+              >
+                Profile
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/usersAgency")}
+              >
+                Users
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={logoutUser}
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <div>
-              <button className="btn btn-primary" onClick={() => navigate("/loginUser")}>User Login</button>
-              <button className="btn btn-primary" onClick={() => navigate("/loginAgency")}>
-                Agency Login
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/loginUser")}
+              >
+                <strong>User Login</strong>
+              </button>
+              <button
+                className="btn btn-outline-dark btn-sm px-3"
+                onClick={() => navigate("/loginAgency")}
+              >
+                <strong>Agency Login</strong>
               </button>
             </div>
           )}
