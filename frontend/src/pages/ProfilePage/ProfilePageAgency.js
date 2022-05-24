@@ -143,6 +143,7 @@ const ProfileAgency = () => {
     <div>
       <NavbarAgency />
       <div className="container-fluid">
+        <h1 className="text-center">{`Profile Page of ${user.name}`}</h1>
         <div className="row">
           <div className="col-md-6">
             <img src={`http://localhost:3011/${image}`}></img>

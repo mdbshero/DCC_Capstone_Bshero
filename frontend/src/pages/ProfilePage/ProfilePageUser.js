@@ -75,6 +75,7 @@ const ProfileUser = () => {
     <div>
       <NavbarUser />
       <div className="container-fluid">
+        <h1 className="text-center">{`Profile Page of ${user.name}`}</h1>
         <div className="row">
           <div className="col-md-6">
             <img src={`http://localhost:3011/${image}`}></img>
@@ -85,7 +86,11 @@ const ProfileUser = () => {
                   <p>{about}</p>
                 </div>
               </div>
-              <form className="form" id="AboutMe" onSubmit={(event) => handleSubmitAbout(event)}>
+              <form
+                className="form"
+                id="AboutMe"
+                onSubmit={(event) => handleSubmitAbout(event)}
+              >
                 <div className="form-outline mb4">
                   <textarea
                     type="text"
@@ -98,7 +103,9 @@ const ProfileUser = () => {
                     Update About me:
                   </label>
                 </div>
-                <button className="btn btn-dark" type="submit">Update</button>
+                <button className="btn btn-dark" type="submit">
+                  Update
+                </button>
               </form>
             </div>
           </div>
@@ -139,7 +146,7 @@ const ProfileUser = () => {
                   onSubmit={(event) => handleSubmitContact(event)}
                 >
                   <div className="form-group">
-                    <label >Update Street:</label>
+                    <label>Update Street:</label>
                     <input
                       type="text"
                       id="street"
@@ -181,7 +188,9 @@ const ProfileUser = () => {
                       onChange={(event) => setPhone(event.target.value)}
                     />
                   </div>
-                  <button className="btn btn-dark" type="submit">Update</button>
+                  <button className="btn btn-dark" type="submit">
+                    Update
+                  </button>
                 </form>
               </div>
             </div>
@@ -287,14 +296,22 @@ const ProfileUser = () => {
               <div>
                 <p>{pref}</p>
               </div>
-              <form className="form" id="NewPref" onSubmit={(event) => handleSubmitPref(event)}>
-                <label><strong>Update Preferred Pet Characteristics:</strong></label>
+              <form
+                className="form"
+                id="NewPref"
+                onSubmit={(event) => handleSubmitPref(event)}
+              >
+                <label>
+                  <strong>Update Preferred Pet Characteristics:</strong>
+                </label>
                 <textarea
                   type="text"
                   defaultValue={""}
                   onChange={(event) => setNewPref(event.target.value)}
                 />
-                <button  className="btn btn-dark" type="submit">Update</button>
+                <button className="btn btn-dark" type="submit">
+                  Update
+                </button>
               </form>
             </div>
           </div>

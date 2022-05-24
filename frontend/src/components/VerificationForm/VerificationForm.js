@@ -80,7 +80,8 @@ const VerFormUser = () => {
   return (
     <div>
       <NavbarUser />
-      <div>
+      <div className="container-fluid">
+      <h1 className="text-center">{`Verification Page of ${user.name}`}</h1>
         <div className="row">
           <div className="col-md-6 border">
             <h2>Verification</h2>

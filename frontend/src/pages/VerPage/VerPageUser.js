@@ -75,7 +75,7 @@ const VerPageUser = () => {
       <NavbarUser />
       <div className="container-fluid">
         <div className="text-center ">
-          <h3>Favorited and Verified Agencies</h3>
+          <h1>Favorited and Verified Agencies</h1>
         </div>
         <div className="row">
           <div className="col-md-6">
