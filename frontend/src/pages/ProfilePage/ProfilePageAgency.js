@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import NavbarAgency from "../../components/NavBar/NavBarAgency";
+import FormData from "form-data";
 
 const ProfileAgency = () => {
   const { user } = useContext(AuthContext);
@@ -28,13 +29,13 @@ const ProfileAgency = () => {
   const [pPersonality, setPPersonality] = useState("");
   const [type, setType] = useState("");
   const jwt = localStorage.getItem("token");
+
   const config = { headers: { Authorization: `Bearer ${jwt}` } };
 
   async function getUserAboutMeInfo() {
     let userInfo = await axios.get(
       `http://localhost:3011/api/agency/${user._id}`
     );
-    console.log(userInfo.data);
     setAbout(userInfo.data.about);
     setImage(userInfo.data.image);
     setContact(userInfo.data.contact);
@@ -89,29 +90,48 @@ const ProfileAgency = () => {
     );
     getUserAboutMeInfo();
   }
-  async function handleSubmitPet(event) {
-    event.preventDefault();
-    let newPet = {
-      name: pName,
-      type: pType,
-      age: pAge,
-      breed: pBreed,
-      personality: pPersonality,
-    };
-    console.log(user._id)
-    console.log(newPet);
-    await axios.put(
-      `http://localhost:3011/api/agency/${user._id}/pets`,
-      newPet
-    );
-    getUserAboutMeInfo();
-  }
+  // async function handleSubmitPet(event) {
+  //   event.preventDefault();
+  //   let newPet = {
+  //     name: pName,
+  //     type: pType,
+  //     age: pAge,
+  //     breed: pBreed,
+  //     personality: pPersonality,
+  //   };
+  //   console.log(user._id);
+  //   console.log(newPet);
+  //   await axios.put(
+  //     `http://localhost:3011/api/agency/${user._id}/pets`,
+  //     newPet
+  //   );
+  //   getUserAboutMeInfo();
+  // }
   async function petDelete(_id, e) {
     e.preventDefault();
     let res = await axios.delete(
       `http://localhost:3011/api/agency/${user._id}/deletePet/${_id}`
     );
     console.log(res);
+    getUserAboutMeInfo();
+  }
+
+  async function handleSubmitPet(e) {
+    e.preventDefault();
+    var bodyFormData = new FormData();
+    bodyFormData.append(
+      "image",
+      document.getElementById("imageUpload").files[0]
+    );
+    bodyFormData.append("name", pName);
+    bodyFormData.append("type", pType);
+    bodyFormData.append("age", pAge);
+    bodyFormData.append("breed", pBreed);
+    bodyFormData.append("personality", pPersonality);
+    await axios.put(
+      `http://localhost:3011/api/agency/${user._id}/pets`,
+      bodyFormData
+    );
     getUserAboutMeInfo();
   }
 
@@ -123,6 +143,7 @@ const ProfileAgency = () => {
     <div>
       <NavbarAgency />
       <div className="container-fluid">
+        <h1 className="text-center">{`Profile Page of ${user.name}`}</h1>
         <div className="row">
           <div className="col-md-6">
             <img src={`http://localhost:3011/${image}`}></img>
@@ -382,13 +403,23 @@ const ProfileAgency = () => {
               </section>
               <h2 className="text-center">Add Pets</h2>
               <form
-                className="form"
+                className="form-control"
                 id="Add Pets"
                 onSubmit={(event) => handleSubmitPet(event)}
               >
                 <div>
+                  <label>Image:</label>
+                  <input
+                  className="form-control"
+                    type="file"
+                    id="imageUpload"
+                    accept="image/png, image/jpeg, image/jpg"
+                  />
+                </div>
+                <div>
                   <label>Name:</label>
                   <input
+                  className="form-control"
                     type="text"
                     defaultValue={""}
                     onChange={(event) => setPName(event.target.value)}
@@ -397,6 +428,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Type:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPType(event.target.value)}
                   />
@@ -404,6 +436,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Age:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPAge(event.target.value)}
                   />
@@ -411,6 +444,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Breed:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPBreed(event.target.value)}
                   />
@@ -418,6 +452,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Personality:</label>
                   <input
+                  className="form-control"
                     type="text"
                     onChange={(event) => setPPersonality(event.target.value)}
                   />
