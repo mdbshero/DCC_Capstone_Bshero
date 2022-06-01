@@ -123,7 +123,7 @@ const VerPageUser = () => {
                                 return (
                                   <div
                                     key={index}
-                                    className="card w-50 text-center border border-dark mb-2"
+                                    className="card text-center border border-dark mb-2"
                                   >
                                     <img
                                       className="card-img-top"
@@ -132,7 +132,6 @@ const VerPageUser = () => {
                                     <div className="card-body">
                                       <h5 className="card-title">{pet.name}</h5>
                                       <div className="card-text">
-                                        <h6>{pet.name}</h6>
                                         <h6>{pet.type}</h6>
                                         <h6>{pet.age}</h6>
                                         <h6>{pet.breed}</h6>
@@ -192,7 +191,6 @@ const VerPageUser = () => {
                                     <div className="card-body">
                                       <h5 className="card-title">{pet.name}</h5>
                                       <div className="card-text">
-                                        <h6>{pet.name}</h6>
                                         <h6>{pet.type}</h6>
                                         <h6>{pet.age}</h6>
                                         <h6>{pet.breed}</h6>
