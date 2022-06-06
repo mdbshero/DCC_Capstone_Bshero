@@ -43,14 +43,6 @@ const ProfileAgency = () => {
     setPets(userInfo.data.pets);
   }
 
-  async function handleSubmitAbout(event) {
-    event.preventDefault();
-    let newAboutMe = {
-      aboutMe: newAbout,
-    };
-    await axios.put(`http://localhost:3011/api/agency/${user._id}`, newAboutMe);
-    getUserAboutMeInfo();
-  }
   async function handleSubmitPrefUser(event) {
     event.preventDefault();
     let newPref = {
@@ -90,23 +82,7 @@ const ProfileAgency = () => {
     );
     getUserAboutMeInfo();
   }
-  // async function handleSubmitPet(event) {
-  //   event.preventDefault();
-  //   let newPet = {
-  //     name: pName,
-  //     type: pType,
-  //     age: pAge,
-  //     breed: pBreed,
-  //     personality: pPersonality,
-  //   };
-  //   console.log(user._id);
-  //   console.log(newPet);
-  //   await axios.put(
-  //     `http://localhost:3011/api/agency/${user._id}/pets`,
-  //     newPet
-  //   );
-  //   getUserAboutMeInfo();
-  // }
+
   async function petDelete(_id, e) {
     e.preventDefault();
     let res = await axios.delete(
@@ -133,6 +109,12 @@ const ProfileAgency = () => {
       bodyFormData
     );
     getUserAboutMeInfo();
+  }
+
+  async function handleSubmitPicture(e) {
+    e.preventDefault();
+    var profilePic = profilePic.append("image", image);
+    await axios.put(``)
   }
 
   useEffect(() => {
@@ -410,7 +392,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Image:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="file"
                     id="imageUpload"
                     accept="image/png, image/jpeg, image/jpg"
@@ -419,7 +401,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Name:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="text"
                     defaultValue={""}
                     onChange={(event) => setPName(event.target.value)}
@@ -428,7 +410,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Type:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(event) => setPType(event.target.value)}
                   />
@@ -436,7 +418,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Age:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(event) => setPAge(event.target.value)}
                   />
@@ -444,7 +426,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Breed:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(event) => setPBreed(event.target.value)}
                   />
@@ -452,7 +434,7 @@ const ProfileAgency = () => {
                 <div>
                   <label>Personality:</label>
                   <input
-                  className="form-control"
+                    className="form-control"
                     type="text"
                     onChange={(event) => setPPersonality(event.target.value)}
                   />
