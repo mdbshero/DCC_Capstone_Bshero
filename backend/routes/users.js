@@ -379,6 +379,22 @@ router.put("/agency/:agencyId/about", async (req, res) => {
   }
 });
 
+
+// Change Agency picture
+router.put("/agency/:agencyId",fileUpload.single("image"), async (req, res) => {
+  try {
+    const agency = await Agency.findById(req.params.agencyId);
+    if(!agency)
+      return res
+        .status(400)
+        .send(`Agency with id ${req.params.agencyId} does not exist!`)
+    let newImage = await Agency.findByIdAndUpdate(req.params.agencyId, { image: req.file.path })
+    return res.status(201).send(newImage);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+})
+
 //PUT upload a pet into an agency profile
 router.put(
   "/agency/:agencyId/pets",
