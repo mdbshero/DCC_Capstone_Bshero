@@ -265,6 +265,22 @@ router.put("/users/:userId/verificationReq/:agencyId", async (req, res) => {
   }
 });
 
+// Change User picture
+router.put("/users/:userId/image", fileUpload.single("image"), async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if(!user)
+      return res
+        .status(400)
+        .send(`User with id ${req.params.userId} does not exist!`)
+    let newImage = await User.findByIdAndUpdate(req.params.userId, { image: req.file.path })
+    console.log(user)
+    return res.status(201).send(newImage);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+})
+
 //AGENCIES
 
 // Get all agencies
