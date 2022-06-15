@@ -104,10 +104,12 @@ const ProfileAgency = () => {
     bodyFormData.append("age", pAge);
     bodyFormData.append("breed", pBreed);
     bodyFormData.append("personality", pPersonality);
+
     await axios.put(
       `http://localhost:3011/api/agency/${user._id}/pets`,
       bodyFormData
     );
+    console.log(bodyFormData)
     getUserAboutMeInfo();
   }
 

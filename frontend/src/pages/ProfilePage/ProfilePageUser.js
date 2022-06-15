@@ -10,6 +10,7 @@ const ProfileUser = () => {
   const [about, setAbout] = useState("");
   const [newAbout, setNewAbout] = useState("");
   const [image, setImage] = useState("");
+  const [newImage, setNewImage] = useState("");
   const [ver, setVer] = useState("");
   const [pref, setPref] = useState("");
   const [newPref, setNewPref] = useState("");
@@ -67,6 +68,15 @@ const ProfileUser = () => {
     getUserAboutMeInfo();
   }
 
+  async function handleSubmitImage(event) {
+    event.preventDefault();
+    let imageUp = new FormData();
+    imageUp.append("image", document.getElementById("imageUpload").files[0]);
+    console.log(imageUp);
+    await axios.put(`http://localhost:3011/api/users/${user._id}/image`, imageUp);
+    getUserAboutMeInfo();
+  }
+
   useEffect(() => {
     getUserAboutMeInfo();
   }, []);
@@ -78,7 +88,23 @@ const ProfileUser = () => {
         <h1 className="text-center">{`Profile Page of ${user.name}`}</h1>
         <div className="row">
           <div className="col-md-6">
-            <img src={`http://localhost:3011/${image}`}></img>
+            <div>
+              <img src={`http://localhost:3011/${image}`}></img>
+              <div>
+                <form onSubmit={(event) => handleSubmitImage(event)}>
+                  <label>
+                    Update Profile Picture:{" "}
+                    <input
+                      type="file"
+                      accept=".jpg,.jpeg,.png"
+                      id="imageUpload"
+                      className="form-control"
+                    />
+                  </label>
+                  <button className="btn btn-dark">Update</button>
+                </form>
+              </div>
+            </div>
             <div className="border border-3">
               <div>
                 <h2>About Me</h2>
