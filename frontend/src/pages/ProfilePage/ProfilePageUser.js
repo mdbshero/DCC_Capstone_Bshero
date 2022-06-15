@@ -274,14 +274,6 @@ const ProfileUser = () => {
                     <th>Pet Energy Level</th>
                     <td>{ver.petEn}</td>
                   </tr>
-                  <tr>
-                    <th>Ideals</th>
-                    <td>{ver.petIdeal}</td>
-                  </tr>
-                  <tr>
-                    <th>Untolerable Habits</th>
-                    <td>{ver.petBadhab}</td>
-                  </tr>
                 </tbody>
               </table>
               <button
