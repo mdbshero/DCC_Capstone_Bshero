@@ -42,6 +42,7 @@ const ProfileUser = () => {
     };
     await axios.put(`http://localhost:3011/api/users/${user._id}`, newAboutMe);
     getUserAboutMeInfo();
+    event.target.reset();
   }
   async function handleSubmitPref(event) {
     event.preventDefault();
@@ -50,6 +51,7 @@ const ProfileUser = () => {
     };
     await axios.put(`http://localhost:3011/api/users/${user._id}`, newPrefPet);
     getUserAboutMeInfo();
+    event.target.reset();
   }
   async function handleSubmitContact(event) {
     event.preventDefault();
@@ -66,6 +68,7 @@ const ProfileUser = () => {
       newContact
     );
     getUserAboutMeInfo();
+    event.target.reset();
   }
 
   async function handleSubmitImage(event) {
@@ -75,6 +78,7 @@ const ProfileUser = () => {
     console.log(imageUp);
     await axios.put(`http://localhost:3011/api/users/${user._id}/image`, imageUp);
     getUserAboutMeInfo();
+    event.target.reset();
   }
 
   useEffect(() => {
@@ -121,11 +125,11 @@ const ProfileUser = () => {
                   <textarea
                     type="text"
                     className="form-control"
-                    id="aboutme"
+                    id="aboutMe"
                     defaultValue={""}
                     onChange={(event) => setNewAbout(event.target.value)}
                   />
-                  <label className="form-label" for="aboutme">
+                  <label className="form-label" for="aboutMe">
                     Update About me:
                   </label>
                 </div>
