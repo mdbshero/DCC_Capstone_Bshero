@@ -62,7 +62,6 @@ const ProfileUser = () => {
       phone: phone,
       state: usState,
     };
-    console.log(newContact);
     await axios.put(
       `http://localhost:3011/api/users/${user._id}/contact`,
       newContact
@@ -75,8 +74,10 @@ const ProfileUser = () => {
     event.preventDefault();
     let imageUp = new FormData();
     imageUp.append("image", document.getElementById("imageUpload").files[0]);
-    console.log(imageUp);
-    await axios.put(`http://localhost:3011/api/users/${user._id}/image`, imageUp);
+    await axios.put(
+      `http://localhost:3011/api/users/${user._id}/image`,
+      imageUp
+    );
     getUserAboutMeInfo();
     event.target.reset();
   }
@@ -133,6 +134,29 @@ const ProfileUser = () => {
                     Update About me:
                   </label>
                 </div>
+                <button className="btn btn-dark" type="submit">
+                  Update
+                </button>
+              </form>
+            </div>
+            <div className="border border-3">
+              <h2>Preferred Pet Characteristics</h2>
+              <div>
+                <p>{pref}</p>
+              </div>
+              <form
+                className="form"
+                id="NewPref"
+                onSubmit={(event) => handleSubmitPref(event)}
+              >
+                <label>
+                  <strong>Update Preferred Pet Characteristics:</strong>
+                </label>
+                <textarea
+                  type="text"
+                  defaultValue={""}
+                  onChange={(event) => setNewPref(event.target.value)}
+                />
                 <button className="btn btn-dark" type="submit">
                   Update
                 </button>
@@ -312,29 +336,6 @@ const ProfileUser = () => {
               >
                 Update
               </button>
-            </div>
-            <div className="border border-3">
-              <h2>Preferred Pet Characteristics</h2>
-              <div>
-                <p>{pref}</p>
-              </div>
-              <form
-                className="form"
-                id="NewPref"
-                onSubmit={(event) => handleSubmitPref(event)}
-              >
-                <label>
-                  <strong>Update Preferred Pet Characteristics:</strong>
-                </label>
-                <textarea
-                  type="text"
-                  defaultValue={""}
-                  onChange={(event) => setNewPref(event.target.value)}
-                />
-                <button className="btn btn-dark" type="submit">
-                  Update
-                </button>
-              </form>
             </div>
           </div>
         </div>

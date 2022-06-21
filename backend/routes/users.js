@@ -397,7 +397,7 @@ router.put("/agency/:agencyId/about", async (req, res) => {
 
 
 // Change Agency picture
-router.put("/agency/:agencyId",fileUpload.single("image"), async (req, res) => {
+router.put("/agency/:agencyId/image",fileUpload.single("image"), async (req, res) => {
   try {
     const agency = await Agency.findById(req.params.agencyId);
     if(!agency)

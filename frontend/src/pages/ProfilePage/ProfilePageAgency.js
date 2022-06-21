@@ -50,6 +50,7 @@ const ProfileAgency = () => {
     };
     await axios.put(`http://localhost:3011/api/agency/${user._id}`, newPref);
     getUserAboutMeInfo();
+    event.target.reset();
   }
   async function handleSubmitContact(event) {
     event.preventDefault();
@@ -60,12 +61,12 @@ const ProfileAgency = () => {
       phone: phone,
       state: usState,
     };
-    console.log(newContact);
     await axios.put(
       `http://localhost:3011/api/agency/${user._id}/contact`,
       newContact
     );
     getUserAboutMeInfo();
+    event.target.reset();
   }
   async function handleSubmitInfo(event) {
     event.preventDefault();
@@ -75,12 +76,12 @@ const ProfileAgency = () => {
       goals: goals,
       typePet: type,
     };
-    console.log(newInfo);
     await axios.put(
       `http://localhost:3011/api/agency/${user._id}/about`,
       newInfo
     );
     getUserAboutMeInfo();
+    event.target.reset();
   }
 
   async function petDelete(_id, e) {
@@ -88,7 +89,6 @@ const ProfileAgency = () => {
     let res = await axios.delete(
       `http://localhost:3011/api/agency/${user._id}/deletePet/${_id}`
     );
-    console.log(res);
     getUserAboutMeInfo();
   }
 
@@ -97,7 +97,7 @@ const ProfileAgency = () => {
     var bodyFormData = new FormData();
     bodyFormData.append(
       "image",
-      document.getElementById("imageUpload").files[0]
+      document.getElementById("imageUploadPet").files[0]
     );
     bodyFormData.append("name", pName);
     bodyFormData.append("type", pType);
@@ -109,14 +109,20 @@ const ProfileAgency = () => {
       `http://localhost:3011/api/agency/${user._id}/pets`,
       bodyFormData
     );
-    console.log(bodyFormData)
     getUserAboutMeInfo();
+    e.target.reset();
   }
 
-  async function handleSubmitPicture(e) {
-    e.preventDefault();
-    var profilePic = profilePic.append("image", image);
-    await axios.put(``)
+  async function handleSubmitImage(event) {
+    event.preventDefault();
+    let imageUp = new FormData();
+    imageUp.append("image", document.getElementById("imageUpload").files[0]);
+    await axios.put(
+      `http://localhost:3011/api/agency/${user._id}/image`,
+      imageUp
+    );
+    getUserAboutMeInfo();
+    event.target.reset();
   }
 
   useEffect(() => {
@@ -131,6 +137,20 @@ const ProfileAgency = () => {
         <div className="row">
           <div className="col-md-6">
             <img src={`http://localhost:3011/${image}`}></img>
+            <div>
+              <form onSubmit={(event) => handleSubmitImage(event)}>
+                <label>
+                  Update Profile Picture:{" "}
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    id="imageUpload"
+                    className="form-control"
+                  />
+                </label>
+                <button className="btn btn-dark">Update</button>
+              </form>
+            </div>
             <div className=" border border-3">
               <div>
                 <h2 className="text-center">Agency Information</h2>
@@ -396,7 +416,7 @@ const ProfileAgency = () => {
                   <input
                     className="form-control"
                     type="file"
-                    id="imageUpload"
+                    id="imageUploadPet"
                     accept="image/png, image/jpeg, image/jpg"
                   />
                 </div>
