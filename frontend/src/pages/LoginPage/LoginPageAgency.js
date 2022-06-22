@@ -24,7 +24,7 @@ const LoginPageAgency = () => {
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Email:{" "}
+          Agency Email:{" "}
           <input
             type="text"
             name="email"

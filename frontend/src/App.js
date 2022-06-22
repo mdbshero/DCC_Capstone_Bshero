@@ -12,6 +12,7 @@ import HomePageAgency from "./pages/HomePage/HomePageAgency";
 import ProfileUser from "./pages/ProfilePage/ProfilePageUser";
 import VerPageUser from "./pages/VerPage/VerPageUser"
 import VerPageAgency from "./pages/VerPage/VerPageAgency"
+import LandingPage from "./pages/LandingPage/LandingPage"
 
 // Component Imports
 import Footer from "./components/Footer/Footer";
@@ -41,7 +42,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/" element={<LoginPageUser />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/registerUser" element={<RegisterPageUser />} />
         <Route path="/registerAgency" element={<RegisterPageAgency />} />
         <Route path="/loginUser" element={<LoginPageUser />} />

@@ -25,7 +25,7 @@ const LoginPageUser = () => {
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Email:{" "}
+          User Email:{" "}
           <input
             type="text"
             name="email"
