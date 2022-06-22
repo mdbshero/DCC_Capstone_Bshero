@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import NavbarUser from "../../components/NavBar/NavBarUser";
 import { useNavigate, Link } from "react-router-dom";
+import "./Profile.css"
 
 const ProfileUser = () => {
   const { user } = useContext(AuthContext);

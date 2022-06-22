@@ -11,7 +11,7 @@ const NavbarUser = () => {
     <div className="navBar">
       <ul>
         <li className="navbar-brand">
-          <b>fĕch</b>
+          <b onClick={() => navigate("/")}>fĕch</b>
         </li>
         <li>
           {user ? (

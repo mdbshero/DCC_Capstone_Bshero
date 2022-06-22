@@ -19,7 +19,7 @@ const RegisterPageAgency = () => {
       <div className="container">
         <form className="form" onSubmit={handleSubmit}>
           <label>
-            Name:{" "}
+            Agency Name:{" "}
             <input
               type="text"
               name="name"

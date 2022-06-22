@@ -19,7 +19,7 @@ const RegisterPageUser = () => {
       <div className="container">
         <form className="form" onSubmit={handleSubmit}>
           <label>
-            Name:{" "}
+            User Name:{" "}
             <input
               type="text"
               name="name"

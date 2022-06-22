@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import NavbarAgency from "../../components/NavBar/NavBarAgency";
 import FormData from "form-data";
+import "./Profile.css"
 
 const ProfileAgency = () => {
   const { user } = useContext(AuthContext);

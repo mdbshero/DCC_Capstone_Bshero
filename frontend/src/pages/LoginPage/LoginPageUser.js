@@ -25,7 +25,7 @@ const LoginPageUser = () => {
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Email:{" "}
+          User Email:{" "}
           <input
             type="text"
             name="email"
@@ -36,7 +36,7 @@ const LoginPageUser = () => {
         <label>
           Password:{" "}
           <input
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
