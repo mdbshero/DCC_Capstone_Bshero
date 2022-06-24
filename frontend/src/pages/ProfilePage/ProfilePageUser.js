@@ -111,7 +111,7 @@ const ProfileUser = () => {
                 </form>
               </div>
             </div>
-            <div className="border border-3">
+            <div className="border border-3 text-center">
               <div>
                 <h2>About Me</h2>
                 <div>
@@ -140,7 +140,7 @@ const ProfileUser = () => {
                 </button>
               </form>
             </div>
-            <div className="border border-3">
+            <div className="border border-3 text-center">
               <h2>Preferred Pet Characteristics</h2>
               <div>
                 <p>{pref}</p>
