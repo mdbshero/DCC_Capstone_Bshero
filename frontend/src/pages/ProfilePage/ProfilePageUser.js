@@ -4,7 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import { useContext } from "react";
 import NavbarUser from "../../components/NavBar/NavBarUser";
 import { useNavigate, Link } from "react-router-dom";
-import "./Profile.css"
+import "./Profile.css";
 
 const ProfileUser = () => {
   const { user } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const ProfileUser = () => {
   const jwt = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${jwt}` } };
   const navigate = useNavigate();
-
+  const validPhoneNumber = /^\d{0,10}$/;
   async function getUserAboutMeInfo() {
     let userInfo = await axios.get(
       `http://localhost:3011/api/users/${user._id}`
@@ -70,6 +70,14 @@ const ProfileUser = () => {
     getUserAboutMeInfo();
     event.target.reset();
   }
+
+  const handlePhone = ({ target }) => {
+    const newPhone = target.value;
+    const isValid = validPhoneNumber.test(newPhone);
+    if (isValid) {
+      setPhone(newPhone);
+    }
+  };
 
   async function handleSubmitImage(event) {
     event.preventDefault();
@@ -240,7 +248,8 @@ const ProfileUser = () => {
                     <input
                       type="text"
                       id="phone"
-                      onChange={(event) => setPhone(event.target.value)}
+                      value={phone}
+                      onChange={handlePhone}
                     />
                   </div>
                   <button className="btn btn-dark" type="submit">
